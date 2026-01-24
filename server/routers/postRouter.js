@@ -1,15 +1,10 @@
 const express = require('express')
+const { sighUpUser, logInUser } = require('../controllers/postFunctions')
 const router = express.Router()
 
 router.route('/signup')
-    .post((req,res) => {
-        console.log(`reached`)
-        return res.json({ success: 'success'})
-    })
+    .post(sighUpUser)
 router.route('/login')
-    .post((req,res) => {
-        console.log(`reached`)
-        return res.json({ success: 'success'})
-    })
+    .post(logInUser)
 
 module.exports = router

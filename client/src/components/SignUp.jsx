@@ -38,8 +38,16 @@ const SignUp = ({atTop}) => {
         }
 
         try {
-            const res = await api.post('/signup')
+            const res = await api.post('/signup', { name, email, password })
+            if(res.data.error) { 
+                setError(res.data.error) 
+                return 
+            }
             console.log(res.data)
+            setEmail('')
+            setError(null)
+            setName('')
+            setPassword('')
             return
         } catch (error) {
             console.log(error)

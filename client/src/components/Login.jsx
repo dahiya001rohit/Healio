@@ -28,7 +28,14 @@ const Login = ({atTop}) => {
         }
 
         try {
-            const res = await api.post('/login')
+            const res = await api.post('/login',{ email, password })
+            if(res.data.error) { 
+                setError(res.data.error) 
+                return 
+            }
+            setEmail('')
+            setPassword('')
+            setError(null)
             console.log(res.data)
             return
         } catch (error) {
