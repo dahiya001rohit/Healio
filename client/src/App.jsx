@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Navbar from './components/Navbar'
 import TodaysUpdate from './components/TodaysUpdate'
 import Track from './components/Track'
+import SignUp from './components/SignUp'
+import Login from './components/Login'
 
 const App = () => {
     const [atTop, setAtTop] = useState(false)
