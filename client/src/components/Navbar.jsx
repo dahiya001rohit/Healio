@@ -21,9 +21,9 @@ const Navbar = ({atTop, setAtTop}) => {
 
   return (
     <div ref={navBar} className={ (atTop?
-            'min-w-3xl left-0 right-0 fixed border-b border-black'
+            'min-w-4xl left-0 right-0 fixed border-b border-black'
             :
-            'min-w-3xl border-[2.5px] border-[#121212] mt-[5vh] mx-[6vw] rounded-4xl'
+            'min-w-4xl border-[2.5px] border-[#121212] mt-[5vh] mx-[6vw] rounded-4xl'
         ) + ' transition-all duration-1000' }>
         <div className={ (atTop?
                 'w-full h-full text-white flex justify-between items-center   bg-[#121212] px-[5vw] py-[1vh]'

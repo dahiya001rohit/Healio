@@ -4,6 +4,7 @@ const MY_JWT_SECRET = process.env.MY_JWT_SECRET
 
 function getToken(user){
     payload = { 
+        userId: user._id,
         name: user.name,
         email: user.email
      }

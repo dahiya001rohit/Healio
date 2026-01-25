@@ -1,6 +1,7 @@
 const Users = require('../models/users')
 const bcrypt = require('bcrypt')
 const { getToken } = require('./JWT')
+const DailyTrack = require('../models/track')
 
 async function sighUpUser(req, res) {
     const { name, email, password} = req.body
@@ -22,7 +23,6 @@ async function sighUpUser(req, res) {
 
 async function logInUser(req, res) {
     const { email, password } = req.body
-    console.log(email, password)
     try {
         const user = await Users.findOne({ email: email })
         if(!user) return res.json({error: `Incorrect Email`})
@@ -37,7 +37,15 @@ async function logInUser(req, res) {
     }   
 }
 
+async function todaysUpdate(req, res) {
+    const { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity} = req.body
+    const track = { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity, date: (new Date().toISOString().split('T')[0])}
+    console.log(track)
+    
+}
+
 module.exports = {
     sighUpUser,
-    logInUser
+    logInUser,
+    todaysUpdate
 }
