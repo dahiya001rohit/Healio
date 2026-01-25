@@ -1,7 +1,14 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import api from '../utils/api'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Login = ({atTop}) => {
+const Login = ({atTop, isLogged}) => {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(isLogged){
+        navigate('/')
+        }
+    })
 
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
@@ -36,6 +43,7 @@ const Login = ({atTop}) => {
             setEmail('')
             setPassword('')
             setError('')
+            console.log(res.data.token)
             localStorage.setItem('token', res.data.token)
             window.location.href = "/"
         } catch (error) {
@@ -62,7 +70,7 @@ const Login = ({atTop}) => {
                     </div>
                 </form>
                 <div className='flex justify-center items-center'>
-                    <h5 className=' text-md'>New user? <span className='text-green-400 hover:underline'><a href="#">SignUp</a></span></h5>
+                    <h5 className=' text-md'>New user? <span className='text-green-400 hover:underline'><Link to='/signup'>SignUp</Link></span></h5>
                 </div>
             </div>
         </div>

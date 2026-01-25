@@ -20,7 +20,8 @@ const dailyTrackSchema = new mongoose.Schema({
   fats: { type: Number, default: null },
   steps: { type: Number, default: null },
   water: { type: Number, default: null },
-  sleep: { type: Number, default: null }
+  sleep: { type: Number, default: null },
+  workoutIntensity: { type: String, default: 'Not Done' }
   
 }, { timestamps: true }).index({userId:1, date: 1}, {unique: true})
 

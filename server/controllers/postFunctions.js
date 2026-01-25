@@ -40,7 +40,29 @@ async function logInUser(req, res) {
 async function todaysUpdate(req, res) {
     const { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity} = req.body
     const track = { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity, date: (new Date().toISOString().split('T')[0])}
-    console.log(track)
+    const user = req.user
+    try {
+        const update = await DailyTrack.create({
+            userId: user.userId,
+            date: track.date,
+
+            meals: track.meals, 
+            calories: track.calories, 
+            protein: track.protein, 
+            carbs: track.carbs, 
+            fats: track.fats, 
+            steps: track.steps, 
+            water: track.water, 
+            sleep: track.sleep, 
+            workoutIntensity: track.workoutIntensity
+
+        })
+        console.log(update)
+        return res.json({ success: `success`})
+    } catch (error) {
+        if(error.code === 11000) return res.json({ error: `Cannot update twice a day` })
+        return res.json({ error })
+    }
     
 }
 

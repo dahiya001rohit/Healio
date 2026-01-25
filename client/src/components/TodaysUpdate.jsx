@@ -14,7 +14,7 @@ const TodaysUpdate = ({atTop}) => {
     const [workoutIntensity, setIntensity] = useState('Not Done')
 
     const validMeals = (mealsValue) => {
-        if(!meals || meals.trim() === '') return false
+        if(!mealsValue || mealsValue.trim() === '') return false
         return true
     }
 
@@ -44,21 +44,20 @@ const TodaysUpdate = ({atTop}) => {
         if(!validNumVal([calories, protein, carbs, fats, steps, water, sleep])){
             return
         }
-        setError(null)
         try {
             const res = await api.post('/todays-update', { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity})
-            console.log(res)
-            setError(null)
+            if(res.data.error){
+                setError(res.data.error)
+            } else {setError(null)}
         } catch (error) {
             setError(error)
-            console.log(error)
             return
         }
     }
   return (
-    <div className={ (atTop?'mt-[18vh]':'mt-[5vh]') + ' min-w-4xl min-h-122 border-[1.5px] border-[#121212] mx-[6vw] rounded-4xl flex flex-col items-center text-white gap-4 '}>
+    <div className={ (atTop?'mt-[18vh]':'mt-[5vh]') + ' min-w-3xl h-full border-[1.5px] border-[#121212] mx-[6vw] rounded-4xl flex flex-col items-center justify-center text-white gap-4 font-roboto-condensed'}>
         <div className='mt-[4vh] w-[80%] flex justify-center font-zalando-expanded text-4xl text-green-400 '>Today's Update</div>
-        <div className='w-[86%] h-[65vh] min-h-93 bg-[#121212] rounded-4xl mb-[10vh] flex justify-center items-center'>
+        <div className='w-[86%] h-[65vh] min-h-93 bg-[#121212] rounded-4xl flex justify-center items-center mt-[5vh]'>
             <div className='w-[95%] h-[90%] flex justify-around'>
                 <div className='w-40/100 h-full  rounded-4xl flex justify-center items-center px-[2vw] py-[1.5vh]'>
                     <form className='w-full min-w-80 h-[85%] flex flex-col items-stretch font-roboto-condensed justify-around' onSubmit={handleOnSubmit}>
@@ -117,6 +116,7 @@ const TodaysUpdate = ({atTop}) => {
                 <div className='w-65/100 h-full border border-l-blue-400 rounded-4xl'></div>
             </div>
         </div>
+        <div className='w-[86%] h-full min-h-93 bg-[#121212] rounded-4xl flex justify-center items-center mb-[6vh] mt-[5vh]'></div>
     </div>
   )
 }

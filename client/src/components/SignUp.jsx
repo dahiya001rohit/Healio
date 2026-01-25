@@ -1,7 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../utils/api'
+import { useNavigate } from 'react-router-dom'
 
-const SignUp = ({atTop}) => {
+const SignUp = ({atTop, isLogged}) => {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(isLogged){
+        navigate('/')
+        }
+    })
+
     const[name, setName] = useState('')
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')

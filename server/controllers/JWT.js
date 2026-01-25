@@ -14,7 +14,7 @@ function getToken(user){
 }
 
 function verifyToken(token){
-    return JWT.verify(token)
+    return JWT.verify(token, MY_JWT_SECRET)
 }
 
 module.exports = {
