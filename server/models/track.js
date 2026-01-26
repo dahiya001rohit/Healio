@@ -23,8 +23,8 @@ const dailyTrackSchema = new mongoose.Schema({
   sleep: { type: Number, default: null },
   workoutIntensity: { type: String, default: 'Not Done' }
   
-}, { timestamps: true }).index({userId:1, date: 1}, {unique: true})
+}, { timestamps: true }).index({userId:1, date: 0}, {unique: true})
 
 
-const DailyTrack = mongoose.model('track', dailyTrackSchema)
+const DailyTrack = mongoose.model('dailyTrack', dailyTrackSchema)
 module.exports = DailyTrack

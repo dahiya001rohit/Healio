@@ -6,6 +6,8 @@ const PORT = process.env.PORT
 const postRouter = require('./routers/postRouter')
 const cors = require('cors')
 const { connectDb } = require('./controllers/connectDatabase')
+const { auth } = require('./middleware/auth')
+const { getTrack } = require('./controllers/getFunction')
 
 connectDb(process.env.MONGO_URL)
     .then(console.log(`Mongo Connected`))
@@ -16,9 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 app.use('/', postRouter)
-app.get('/', (req, res)=>{
-    console.log(`reached`)
-})
+app.get('/track', auth, getTrack)
 app.listen(PORT, () => {
     console.log(`Started at ${PORT}`)
 })
