@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import api from '../utils/api'
-import trackFunctions from '../utils/functions'
+import trackFunctions from '../utils/trackFunctions'
+import { Line } from 'react-chartjs-2'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+
 
 const Track = ({atTop}) => {
+  const todaysDate = new Date()
+  const [yearWise, setYearWise] = useState(null)
+  const [yearWiseDailyAvg, setYearWiseDailyAvg] = useState(null)
+  const [yearWiseWeekTotal, setYearWiseWeekTotal] = useState(null)
+  const [yearWiseWeekFixedTotal, setYearWiseWeekFixedTotal] = useState(null)
+  const [yearWiseWeekAvg, setYearWiseWeekAvg] = useState(null)
+  const [yearWiseMonthTotal, setYearMonthTotal] = useState(null)
+  const [yearWiseMonthAvg, setYearWiseMonthAvg] = useState(null)
+  const [chartData, setChartData] = useState(null)
   const [data, setData] = useState(null)
-  const { dailyAvgs, yearWiseWeeklyTotals, weeklyAvg, monthlyAvgs } = trackFunctions()
+  const { dailyAvgs, yearWiseWeeklyTotals, weeklyAvg, monthlyAvgs, groupByYear } = trackFunctions()
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await api.get('/track');
         setData(res.data.track)
-        const yearWiseDailyAvg = dailyAvgs(res.data.track)
-        console.log(yearWiseDailyAvg)
-  
         return
       } catch (error) {
         console.log(error);
@@ -20,6 +39,26 @@ const Track = ({atTop}) => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if(!data) return
+    setYearWise(groupByYear(data))
+    setYearWiseDailyAvg(dailyAvgs(data))
+    setYearWiseWeekTotal(yearWiseWeeklyTotals(data))
+    const {weekFixTotal, weekAvg} = weeklyAvg(data)
+    setYearWiseWeekFixedTotal(weekFixTotal)
+    setYearWiseWeekAvg(weekAvg)
+    const {monthTotal, monthAvg} = monthlyAvgs(data)
+    console.log(monthAvg)
+    setYearMonthTotal(monthTotal)
+    setYearWiseMonthAvg(monthAvg)
+  }, [data])
+
+  useEffect(() => {
+    console.log(yearWiseMonthAvg)
+  }, [yearWiseMonthAvg])
+
+
   
   return (
     <div className={ (atTop? 'mt-[18vh]':'mt-[5vh]' ) + ' min-w-3xl min-h-300 border-[1.5px] border-[#121212] mx-[6vw] rounded-4xl flex flex-col items-center text-white gap-4'}>

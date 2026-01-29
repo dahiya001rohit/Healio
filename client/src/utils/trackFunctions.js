@@ -230,7 +230,8 @@ const trackFunctions = () => {
         dailyAvgs,
         yearWiseWeeklyTotals,
         weeklyAvg,
-        monthlyAvgs
+        monthlyAvgs,
+        groupByYear
     }
 }
 
