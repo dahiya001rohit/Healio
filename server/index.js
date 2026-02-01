@@ -5,7 +5,7 @@ const app = express()
 const PORT = process.env.PORT
 const postRouter = require('./routers/postRouter')
 const cors = require('cors')
-const { connectDb } = require('./controllers/connectDatabase')
+const { connectDb } = require('./connectDatabase')
 const { auth } = require('./middleware/auth')
 const { getTrack } = require('./controllers/getFunction')
 

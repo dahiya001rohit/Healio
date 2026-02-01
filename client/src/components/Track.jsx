@@ -27,10 +27,24 @@ const Track = ({atTop}) => {
   const [chartData, setChartData] = useState(null)
   const [data, setData] = useState(null)
   const { dailyAvgs, yearWiseWeeklyTotals, weeklyAvg, monthlyAvgs, groupByYear } = trackFunctions()
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await api.get('/track');
+        
+        // setting values
+        setYearWise(groupByYear(res.data.track))
+        setYearWiseDailyAvg(dailyAvgs(res.data.track))
+        setYearWiseWeekTotal(yearWiseWeeklyTotals(res.data.track))
+        const {yearWiseWeeklyAvg: a, weeklyAdjTotals: b} = weeklyAvg(res.data.track)
+        setYearWiseWeekFixedTotal(b)
+        setYearWiseWeekAvg(a)
+        const {yearWiseMonthlyTotal: c, yearWiseMonthlyAvg: d} = monthlyAvgs(res.data.track)
+        setYearMonthTotal(c)
+        setYearWiseMonthAvg(d)
         setData(res.data.track)
         return
       } catch (error) {
@@ -41,25 +55,9 @@ const Track = ({atTop}) => {
   }, []);
 
   useEffect(() => {
-    if(!data) return
-    setYearWise(groupByYear(data))
-    setYearWiseDailyAvg(dailyAvgs(data))
-    setYearWiseWeekTotal(yearWiseWeeklyTotals(data))
-    const {weekFixTotal, weekAvg} = weeklyAvg(data)
-    setYearWiseWeekFixedTotal(weekFixTotal)
-    setYearWiseWeekAvg(weekAvg)
-    const {monthTotal, monthAvg} = monthlyAvgs(data)
-    console.log(monthAvg)
-    setYearMonthTotal(monthTotal)
-    setYearWiseMonthAvg(monthAvg)
-  }, [data])
+    console.log({ data, yearWise, yearWiseDailyAvg, yearWiseWeekTotal, yearWiseWeekFixedTotal, yearWiseWeekAvg, yearWiseMonthTotal, yearWiseMonthAvg })
+  }, [data, yearWise, yearWiseDailyAvg, yearWiseWeekTotal, yearWiseWeekFixedTotal, yearWiseWeekAvg, yearWiseMonthTotal, yearWiseMonthAvg])
 
-  useEffect(() => {
-    console.log(yearWiseMonthAvg)
-  }, [yearWiseMonthAvg])
-
-
-  
   return (
     <div className={ (atTop? 'mt-[18vh]':'mt-[5vh]' ) + ' min-w-3xl min-h-300 border-[1.5px] border-[#121212] mx-[6vw] rounded-4xl flex flex-col items-center text-white gap-4'}>
       <div className='w-[90%] h-[6vh] mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
