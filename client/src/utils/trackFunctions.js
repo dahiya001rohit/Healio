@@ -26,212 +26,204 @@ const trackFunctions = () => {
     const groupByMonth = (dataArr) => {
 
         if(!dataArr) throw new Error('no data is given')
-        const months = {}
-        dataArr.forEach(day => {
-            const date = new Date(day.date)
-            const monthNum = date.getMonth() + 1
-            if(!months[monthNum]) months[monthNum] = []
-            months[monthNum].push(day)
-        })
-        return months
+        const yearWiseData = groupByYear(dataArr)
+        const monthsWiseYearData = {}
+        for( let year in yearWiseData){
+            monthsWiseYearData[year] = {}
+            yearWiseData[year].forEach( day => {
+                let monthNum = (new Date(day.date)).getMonth() + 1
+                if(!monthsWiseYearData[year][monthNum]) monthsWiseYearData[year][monthNum] = []
+                monthsWiseYearData[year][monthNum].push(day)
+            })
+        }
+        return monthsWiseYearData
     }
 
     const groupByWeek = (dataArr) => {
 
         if(!dataArr) throw new Error('no data is given')
-        const weeks = {}
-        dataArr.forEach(day => {
-            const weekNum = getOnGoingWeek(day.date)
-            if(!weeks[weekNum]) weeks[weekNum] = []
-            weeks[weekNum].push(day)
-        })
-        return weeks
+        const yearWiseData = groupByYear(dataArr)
+        const weekWiseYearData = {}
+        for( let year in yearWiseData){
+            weekWiseYearData[year] = {}
+            yearWiseData[year].forEach( day => {
+                let weekNum = getOnGoingWeek(day.date)
+                if(!weekWiseYearData[year][weekNum]) weekWiseYearData[year][weekNum] = []
+                weekWiseYearData[year][weekNum].push(day)
+            })
+        }
+        return weekWiseYearData
     }
 
     // --- Aggregation functions ---
-    const dailyAvgs = (dataArr) => {
 
-        const years = groupByYear(dataArr)
-        const yearWiseDailyAvg = {}
-        for(let year in years){
-            const days = years[year]
-            let totalCalories = 0
-            let totalProtein = 0
-            let totalCarbs = 0
-            let totalFats = 0
-            let totalSteps = 0
-            let totalSleep = 0
-            let totalWater = 0
-            let len = days.length
-            days.forEach((day) => {
-                totalCalories += day.calories
-                totalSteps += day.steps
-                totalSleep += day.sleep
-                totalWater += day.water
-                totalProtein += day.protein
-                totalCarbs += day.carbs
-                totalFats += day.fats
-            })
-            yearWiseDailyAvg[year] = {
-                avgCalories: Math.round(totalCalories/len),
-                avgSteps: Math.round(totalSteps/len),
-                avgSleep: Math.round(totalSleep/len),
-                avgWater: Math.round(totalWater/len),
-                avgCarbs: Math.round(totalCarbs/len),
-                avgFats: Math.round(totalFats/len),
-                avgProtein: Math.round(totalProtein/len),
-            }
-        }
-        return yearWiseDailyAvg
+    const calculateTotalsArr = (days) => {
+        let totalCalories = 0
+        let totalProtein = 0
+        let totalCarbs = 0
+        let totalFats = 0
+        let totalSteps = 0
+        let totalSleep = 0
+        let totalWater = 0
+        days.forEach((day) => {
+            totalCalories += day.calories
+            totalSteps += day.steps
+            totalSleep += day.sleep
+            totalWater += day.water
+            totalProtein += day.protein
+            totalCarbs += day.carbs
+            totalFats += day.fats
+        })
+        return { totalCalories, totalProtein, totalCarbs, totalFats, totalSteps, totalSleep, totalWater }
     }
 
-    const yearWiseWeeklyTotals = (dataArr) => {
+    const calculateTotalsObj = (obj, str) => {
+        let totalCalories = 0
+        let totalProtein = 0
+        let totalCarbs = 0
+        let totalFats = 0
+        let totalSteps = 0
+        let totalSleep = 0
+        let totalWater = 0
+        for(let key in obj){
+            const w = obj[key]
+            totalCalories += w.totalCalories
+            totalSteps += w.totalSteps
+            totalSleep += w.totalSleep
+            totalWater += w.totalWater
+            totalProtein += w.totalProtein
+            totalCarbs += w.totalCarbs
+            totalFats += w.totalFats
+        }
+        return { totalCalories, totalSteps, totalSleep, totalWater, totalProtein, totalCarbs, totalFats}
+    }
+    const dailyAvg = (dataArr) => {
 
-        const yearsData = groupByYear(dataArr)
-        const yearWiseWeek = {}
-        for(let year in yearsData){
-        yearWiseWeek[year] = groupByWeek(yearsData[year])
-        }
-        const weeklyTotals = {}
-        for(let year in yearWiseWeek){
-            weeklyTotals[year] = {}
-            let noOfWeeks = 0
-            for(let week in yearWiseWeek[year]){
-                noOfWeeks += 1
-                const w = yearWiseWeek[year][week]
-                let totalCalories = 0
-                let totalProtein = 0
-                let totalCarbs = 0
-                let totalFats = 0
-                let totalSteps = 0
-                let totalSleep = 0
-                let totalWater = 0
-                let totalDays = 0
-                w.forEach((day) => {
-                totalCalories += day.calories
-                totalSteps += day.steps
-                totalSleep += day.sleep
-                totalWater += day.water
-                totalProtein += day.protein
-                totalCarbs += day.carbs
-                totalFats += day.fats
-                totalDays += 1
-                })
-                weeklyTotals[year][week] = {totalCalories, totalSteps, totalSleep, totalWater, totalProtein, totalCarbs, totalFats, totalDays}
+        const years = groupByYear(dataArr)
+        const avgs = {}
+        for(let year in years){
+            const daysTotals = calculateTotalsArr(years[year])
+            let noOfDays = years[year].length
+            avgs[year] = {
+                avgCalories: Math.round(daysTotals.totalCalories/noOfDays),
+                avgSteps: Math.round(daysTotals.totalSteps/noOfDays),
+                avgSleep: Math.round(daysTotals.totalSleep/noOfDays),
+                avgWater: Math.round(daysTotals.totalWater/noOfDays),
+                avgCarbs: Math.round(daysTotals.totalCarbs/noOfDays),
+                avgFats: Math.round(daysTotals.totalFats/noOfDays),
+                avgProtein: Math.round(daysTotals.totalProtein/noOfDays),
             }
-            weeklyTotals[year]['noOfWeeks'] = noOfWeeks
         }
-        return weeklyTotals
+        return avgs
+    }
+
+    const weeklyTotals = (dataArr) => {
+        const daysAvg = dailyAvg(dataArr)
+        const weekWiseYearData  = groupByWeek(dataArr)
+        const totals = {}
+        for(let year in weekWiseYearData){
+            totals[year] = {}
+            for(let week in weekWiseYearData[year]){
+                if(week === '1' && Object.keys(weekWiseYearData[year]).length !== 1){
+                    if(weekWiseYearData[year-1]){
+                        const preWeekTotals = calculateTotalsArr(weekWiseYearData[year-1][week])
+                        const currWeekTotals = calculateTotalsArr(weekWiseYearData[year][week])
+                        totals[year][week] = {
+                            totalCalories: preWeekTotals.totalCalories + currWeekTotals.totalCalories,
+                            totalProtein: preWeekTotals.totalProtein + currWeekTotals.totalProtein,
+                            totalCarbs: preWeekTotals.totalCarbs + currWeekTotals.totalCarbs,
+                            totalFats: preWeekTotals.totalFats + currWeekTotals.totalFats,
+                            totalSteps: preWeekTotals.totalSteps + currWeekTotals.totalSteps,
+                            totalSleep: preWeekTotals.totalSleep + currWeekTotals.totalSleep,
+                            totalWater: preWeekTotals.totalWater + currWeekTotals.totalWater,
+                            
+                        }
+                    } else {
+                        const currWeekTotals = calculateTotalsArr(weekWiseYearData[year][week])
+                        const remaining = 7 - (weekWiseYearData[year][week]).length
+                        if(remaining > 0){
+                            totals[year][week] = {
+                                totalCalories: currWeekTotals.totalCalories + remaining*(daysAvg[year].avgCalories),
+                                totalProtein: currWeekTotals.totalProtein + remaining*(daysAvg[year].avgProtein),
+                                totalCarbs: currWeekTotals.totalCarbs + remaining*(daysAvg[year].avgCarbs),
+                                totalFats: currWeekTotals.totalFats + remaining*(daysAvg[year].avgFats),
+                                totalSteps: currWeekTotals.totalSteps + remaining*(daysAvg[year].avgSteps),
+                                totalSleep: currWeekTotals.totalSleep + remaining*(daysAvg[year].avgSleep),
+                                totalWater: currWeekTotals.totalWater + remaining*(daysAvg[year].avgWater),
+                            }
+                        } else {
+                            totals[year][week] = currWeekTotals
+                        }
+                    }
+                } else {
+                    totals[year][week] = calculateTotalsArr(weekWiseYearData[year][week])
+                }
+            }
+        }
+        return totals
+    }
+
+    const monthlyTotals = (dataArr) => {
+        const monthWiseYearData  = groupByMonth(dataArr)
+        const totals = {}
+        for(let year in monthWiseYearData){
+            totals[year] = {}
+            for(let month in monthWiseYearData[year]){
+                totals[year][month] = calculateTotalsArr(monthWiseYearData[year][month])
+            }
+        }
+        return totals
     }
 
     const weeklyAvg = (dataArr) => {
-
-        const weeklyTotals = yearWiseWeeklyTotals(dataArr)
-        const yearWiseDailyAvg = dailyAvgs(dataArr)
-        const yearWiseWeeklyAvg = {}
-        const weeklyAdjTotals = {}
-        for(let year in weeklyTotals){
-            weeklyAdjTotals[year] = {}
-            const yearData = weeklyTotals[year]
-            const yearDailyAvgs = yearWiseDailyAvg[year]
-            yearWiseWeeklyAvg[year] = {}
-            let totalWeeklyCalories = 0
-            let totalWeeklyProtein = 0
-            let totalWeeklyCarbs = 0
-            let totalWeeklyFats = 0
-            let totalWeeklySteps = 0
-            let totalWeeklySleep = 0
-            let totalWeeklyWater = 0
-            for(let week in yearData){
-                if(week === 'noOfWeeks') continue
-                const w = yearData[week]
-                if(w.totalDays < 7){
-                const remaining = 7 - w.totalDays
-                w.totalCalories += remaining*yearDailyAvgs.avgCalories
-                w.totalSteps += remaining*yearDailyAvgs.avgSteps
-                w.totalSleep += remaining*yearDailyAvgs.avgSleep
-                w.totalWater += remaining*yearDailyAvgs.avgWater
-                w.totalProtein += remaining*yearDailyAvgs.avgProtein
-                w.totalCarbs += remaining*yearDailyAvgs.avgCarbs
-                w.totalFats += remaining*yearDailyAvgs.avgFats
-                }
-                totalWeeklyCalories += w.totalCalories
-                totalWeeklyProtein += w.totalProtein
-                totalWeeklyCarbs += w.totalCarbs
-                totalWeeklyFats += w.totalFats
-                totalWeeklySteps += w.totalSteps
-                totalWeeklySleep += w.totalSleep
-                totalWeeklyWater += w.totalWater
-
-                weeklyAdjTotals[year][week] = w
-            }
-            weeklyAdjTotals[year]["noOfWeeks"] = weeklyTotals[year].noOfWeeks
-            yearWiseWeeklyAvg[year] = {
-                avgWeeklyCalories: Math.round(totalWeeklyCalories/yearData.noOfWeeks),
-                avgWeeklyProtein: Math.round(totalWeeklyProtein/yearData.noOfWeeks),
-                avgWeeklyCarbs: Math.round(totalWeeklyCarbs/yearData.noOfWeeks),
-                avgWeeklyFats: Math.round(totalWeeklyFats/yearData.noOfWeeks),
-                avgWeeklySteps: Math.round(totalWeeklySteps/yearData.noOfWeeks),
-                avgWeeklySleep: Math.round(totalWeeklySleep/yearData.noOfWeeks),
-                avgWeeklyWater: Math.round(totalWeeklyWater/yearData.noOfWeeks),
+        const weekTotals = weeklyTotals(dataArr)
+        const netTotal = {}
+        const avg = {}
+        for(let year in weekTotals){
+            const noOfWeeks = Object.keys(weekTotals[year]).length
+            netTotal[year] = calculateTotalsObj(weekTotals[year])
+            avg[year] = {
+                avgCalories: Math.round(netTotal[year].totalCalories/noOfWeeks),
+                avgSteps: Math.round(netTotal[year].totalSteps/noOfWeeks),
+                avgSleep: Math.round(netTotal[year].totalSleep/noOfWeeks),
+                avgWater: Math.round(netTotal[year].totalWater/noOfWeeks),
+                avgCarbs: Math.round(netTotal[year].totalCarbs/noOfWeeks),
+                avgFats: Math.round(netTotal[year].totalFats/noOfWeeks),
+                avgProtein: Math.round(netTotal[year].totalProtein/noOfWeeks),
             }
         }
-        return {yearWiseWeeklyAvg, weeklyAdjTotals}
+        return avg
     }
 
-    const monthlyAvgs = (dataArr) => {
-
-        const yearData = groupByYear(dataArr)
-        const yearWiseMonth = {}
-        for(let year in yearData){
-        const days = yearData[year]
-        yearWiseMonth[year] = groupByMonth(days)
-        }
-        const yearWiseMonthlyTotal = {}
-        const yearWiseMonthlyAvg = {}
-        for(let year in yearWiseMonth){
-            yearWiseMonthlyTotal[year] = {}
-            yearWiseMonthlyAvg[year] = {}
-            for(let month in yearWiseMonth[year]){
-                let totalCalories = 0
-                let totalProtein = 0
-                let totalCarbs = 0
-                let totalFats = 0
-                let totalSteps = 0
-                let totalSleep = 0
-                let totalWater = 0
-                let totalDays = 0
-                yearWiseMonth[year][month].forEach( (day) => {
-                totalCalories += day.calories
-                totalSteps += day.steps
-                totalSleep += day.sleep
-                totalWater += day.water
-                totalProtein += day.protein
-                totalCarbs += day.carbs
-                totalFats += day.fats
-                totalDays += 1
-                })
-                yearWiseMonthlyTotal[year][month] = {totalCalories, totalSteps, totalSleep, totalWater, totalProtein, totalCarbs, totalFats, totalDays}
-                yearWiseMonthlyAvg[year][month] = {
-                avgCalories: Math.round(totalCalories/totalDays),
-                avgSteps: Math.round(totalSteps/totalDays),
-                avgSleep: Math.round(totalSleep/totalDays),
-                avgWater: Math.round(totalWater/totalDays),
-                avgCarbs: Math.round(totalCarbs/totalDays),
-                avgFats: Math.round(totalFats/totalDays),
-                avgProtein: Math.round(totalProtein/totalDays),
-                }
+    const monthlyAvg = (dataArr) => {
+        const monthTotals = monthlyTotals(dataArr)
+        const netTotal = {}
+        const avg = {}
+        for(let year in monthTotals){
+            const noOfMonths = Object.keys(monthTotals[year]).length
+            netTotal[year] = calculateTotalsObj(monthTotals[year])
+            avg[year] = {
+                avgCalories: Math.round(netTotal[year].totalCalories/noOfMonths),
+                avgSteps: Math.round(netTotal[year].totalSteps/noOfMonths),
+                avgSleep: Math.round(netTotal[year].totalSleep/noOfMonths),
+                avgWater: Math.round(netTotal[year].totalWater/noOfMonths),
+                avgCarbs: Math.round(netTotal[year].totalCarbs/noOfMonths),
+                avgFats: Math.round(netTotal[year].totalFats/noOfMonths),
+                avgProtein: Math.round(netTotal[year].totalProtein/noOfMonths),
             }
         }
-        return {yearWiseMonthlyTotal, yearWiseMonthlyAvg}
+        return avg
     }
 
     return {
-        dailyAvgs,
-        yearWiseWeeklyTotals,
+        groupByYear,
+        groupByMonth,
+        groupByWeek,
+        dailyAvg,
+        weeklyTotals,
+        monthlyTotals,
         weeklyAvg,
-        monthlyAvgs,
-        groupByYear
+        monthlyAvg
     }
 }
 
