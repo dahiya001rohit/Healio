@@ -20,7 +20,7 @@ const App = () => {
       }
     }, [token, user]);
   return (
-    <div className='flex flex-col overflow-x-auto'>
+    <div className='flex flex-col'>
       <Navbar atTop={atTop} setAtTop ={setAtTop} isLogged = {isLogged} logOut = {logOut}/>
       <Routes>
         <Route path='/' element = {isLogged?<LoggedHome atTop={atTop} user = {user} />:<UnloggedHome atTop={atTop} />} />

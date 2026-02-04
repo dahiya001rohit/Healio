@@ -16,12 +16,77 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 
 const Track = ({atTop}) => {
+
+  const [chartData, setChartData] = useState(
+    {
+        labels: [],
+        datasets: [
+          {
+            label: 'hi',
+            data: [],
+            borderColor: "#4ADE80",
+            borderWidth: 3,
+            pointBackgroundColor: "#fff",
+            pointBorderColor: "#fff",
+            backgroundColor: "rgba(75, 192, 192, 0.6)",
+            pointStyle: "rectRounded"
+          }
+        ]
+      }
+  )
+  const [chartOptions, setChartOptions] = useState(
+    {
+        responsive: true,
+        plugins: {
+          legend: {
+            position:'top',
+            labels: {
+              usePointStyle: true,
+              color: "#00ff00", // Legend text color (green)
+              font: {
+                size: 16,
+                family: "Roboto",
+                weight: "bold"
+              },
+              boxWidth: 30, // Size of the color box
+              padding: 20   // Space between legend items
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Date", // X axis label
+              color: "#00ff00", // Optional: label color
+              font: {
+                size: 16,
+                weight: "bold"
+              }
+            },
+            border: { color: "#ff0000" },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Calories", // Y axis label
+              color: "#00ff00", // Optional: label color
+              font: {
+                size: 16,
+                weight: "bold"
+              }
+            },
+            border: { color: "#ff0000" },
+          }
+        }
+      }
+  )
   const [data, setData] = useState(null)
   const [dayAvg, setDayAvg] = useState(null)
   const [weekAvg, setWeekAvg] = useState(null)
   const [monthAvg, setMonthAvg] = useState(null)
 
-  const [of, setOf] = useState('month')
+  const [of, setOf] = useState('day')
 
   const [calories, setCalories] = useState(0)
   const [steps, setSteps] = useState(0)
@@ -32,45 +97,6 @@ const Track = ({atTop}) => {
 
   const { groupByYear, groupByMonth, groupByWeek, dailyAvg, weeklyTotals, monthlyTotals, weeklyAvg, monthlyAvg} = trackFunctions()
 
-  const calculateData = () => {
-    // if( of === 'day' && yearWise ){
-    //   const presentYearData = yearWise[todaysDate.getFullYear()]
-    //   console.log(presentYearData)
-    //   const dateArr = []
-    //   const dateData = []
-    //   presentYearData.forEach( day => {
-    //     dateArr.push((day.date).split('T')[0])
-    //     dateData.push({ calories: day.calories, carbs: day.carbs, fats: day.fats, protein: day.protein, sleep: day.sleep, steps: day.steps, water: day.water})
-    //   })
-    //   return { dateArr, dateData}
-    // }
-    // if( of === 'week' && yearWiseWeekFixedTotal ){
-    //   const presentYearData = yearWiseWeekFixedTotal[todaysDate.getFullYear()]
-    //   console.log(presentYearData)
-    //   const weekArr = []
-    //   const weekData = []
-    //   for(let i in presentYearData){
-    //     if(i === 'noOfWeeks'){
-    //       continue
-    //     }
-    //     weekArr.push(i)
-    //     weekData.push( presentYearData[i])
-    //   }
-    //   console.log(weekArr)
-    //   console.log(weekData)
-    // }
-    // if( of === 'month' && yearWiseMonthTotal ){
-    //   const presentYearData = yearWiseMonthTotal[todaysDate.getFullYear() - 1]
-    //   console.log(presentYearData)
-    //   const monthArr = Object.keys(presentYearData)
-    //   const monthData = []
-    //   for(let i in presentYearData){
-    //     monthData.push( presentYearData[i])
-    //   }
-    //   console.log(monthArr)
-    //   console.log(monthData)
-    // }
-  }
   const dayClick = (e) => {
     setOf('day')
     setCalories(dailyAvg(data)[todaysDate.getFullYear()]['avgCalories'])
@@ -112,17 +138,101 @@ const Track = ({atTop}) => {
   useEffect(() => {
     if (!data) return;
     const yearData = dailyAvg(data)[todaysDate.getFullYear()];
+    console.log(yearData)
     if (yearData) {
       setCalories(yearData['avgCalories']);
       setSleep(yearData['avgSleep']);
       setSteps(yearData['avgSteps']);
       setwater(yearData['avgWater']);
     }
+    const chartValues = (data) => {
+      let lableArr = []
+      let dataArr = []
+      groupByYear(data)[todaysDate.getFullYear()].forEach( day => {
+        let d = (day.date.split('T')[0]).split('-')
+        lableArr.push(d[2] + '-' +  d[1])
+        dataArr.push(day.protein)
+      })
+      const dataa = {
+        labels: lableArr,
+        datasets: [
+          {
+            label: of,
+            data: dataArr,
+            borderColor: "#4ADE80",
+            borderWidth: 1,
+            pointRadius: 3.5,
+            pointBackgroundColor: "#fff",
+            pointBorderColor: "#fff",
+            backgroundColor: "rgba(75, 192, 192, 0.6)",
+            pointStyle: "rectRounded"
+          }
+        ]
+      };
+
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position:'top',
+            labels: {
+              usePointStyle: true,
+              color: "#4ADE80", // Legend text color (green)
+              font: {
+                size: 10,
+                family: "Roboto",
+                weight: "light"
+              },
+              boxWidth: 30, // Size of the color box
+              padding: 20   // Space between legend items
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Date", // X axis label
+              color: "#4ADE80", // Optional: label color
+              font: {
+                size: 24,
+                weight: 'light'
+              }
+            },
+            border: { color: "#999b9e" },
+          },
+          y: {
+            min: 0,
+            max: 300,
+            ticks: {
+              stepSize: 100 // Gap of 50 between y-axis values
+            },
+            title: {
+              display: true,
+              text: "Calories", // Y axis label
+              color: "#4ADE80", // Optional: label color
+              font: {
+                size: 24,
+                weight: 'light'
+              }
+            },
+            border: { color: "#999b9e" },
+          }
+        }
+      };
+
+      return {dataa, options}
+    }
+    const {dataa, options} = chartValues(data)
+    setChartData(dataa)
+    setChartOptions(options)
   }, [data]);
 
+
+
   return (
-    <div className={ (atTop? 'mt-[18vh]':'mt-[5vh]' ) + ' min-w-3xl min-h-300 border-[1.5px] border-[#121212] mx-[6vw] rounded-4xl flex flex-col items-center text-white gap-4'}>
-      <div className='w-[90%] h-[6vh] mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
+    <div className={ (atTop? 'mt-45':'mt-13' ) + ' w-[92vw] h-200 border-[1.5px] border-[#121212] mx-8 rounded-4xl flex flex-col items-center text-white gap-4 '}>
+      {/* <div className='w-[90%] h-[6vh] mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
         <h1
           className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'day' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
           onClick={dayClick}
@@ -186,11 +296,12 @@ const Track = ({atTop}) => {
                 </div>
               </div>
             </div>
-            <div className='w-full h-78/100 border'>
-              {/* chatr area */}
+            <div className='w-full h-78/100 border p-8 rounded-4xl flex flex-col items-center'>
+              <Line data={chartData} options={chartOptions} />
+              hi
             </div>
           </div>
-      </div>
+      </div> */}
     </div>
   )
 }
