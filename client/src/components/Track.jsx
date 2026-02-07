@@ -151,14 +151,14 @@ const Track = ({atTop}) => {
       groupByYear(data)[todaysDate.getFullYear()].forEach( day => {
         let d = (day.date.split('T')[0]).split('-')
         lableArr.push(d[2] + '-' +  d[1])
-        dataArr.push(day.protein)
+        dataArr.push(day.calories)
       })
       const dataa = {
-        labels: lableArr,
+        labels: lableArr.slice(0, 10),
         datasets: [
           {
             label: of,
-            data: dataArr,
+            data: dataArr.slice(0, 10),
             borderColor: "#4ADE80",
             borderWidth: 1,
             pointRadius: 3.5,
@@ -172,6 +172,7 @@ const Track = ({atTop}) => {
 
       const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position:'top',
@@ -203,7 +204,7 @@ const Track = ({atTop}) => {
           },
           y: {
             min: 0,
-            max: 300,
+            max: 3000,
             ticks: {
               stepSize: 100 // Gap of 50 between y-axis values
             },
@@ -231,7 +232,69 @@ const Track = ({atTop}) => {
 
 
   return (
-    <div className={ (atTop? 'mt-45':'mt-13' ) + ' w-[92vw] h-200 border-[1.5px] border-[#121212] mx-8 rounded-4xl flex flex-col items-center text-white gap-4 '}>
+    <div className={ (atTop? 'mt-45':'mt-13' ) + ' w-[90%] min-w-95 h-full border-[2.5px] border-[#121212] mx-[5%] rounded-4xl flex flex-col items-center text-white gap-4 '}>
+      <div className='w-[90%] h-15 mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
+        <h1
+          className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'day' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+          onClick={dayClick}
+        >
+          Daily
+        </h1>
+        <h1
+          className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'week' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+          onClick={weekClick}
+        >
+          Weekly
+        </h1>
+        <h1
+          className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'month' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+          onClick={monthClick}
+        >
+          Monthly
+        </h1>
+      </div>
+      <div className='w-[90%] bg-[#121212] rounded-4xl flex flex-col items-center font-roboto-condensed mb-20 py-10'>
+          <div className='w-[90%] h-22 sm:h-25 md:h-28 md:justify-around md:gap-0 flex justify-center gap-3'>
+              <div className='h-full w-[20%] bg-green-400 flex flex-col items-center rounded-xl'>
+                <h1 className='text-black text-lg sm:text-xl md:text-2xl lg:text-4xl h-6/10 flex items-center-safe font-bold'>
+                  {calories}
+                </h1>
+                <h1 className='text-black text-sm sm:text-lg md:text-xl lg:text-2xl h-4/10 items-center font-bold'>
+                  Calories
+                </h1>
+              </div>
+              <div className='h-full w-[20%] bg-green-400 flex flex-col items-center rounded-xl'>
+                <h1 className='text-black text-lg sm:text-xl md:text-2xl lg:text-4xl h-6/10 flex items-center-safe font-bold'>
+                      {steps}
+                </h1>
+                <h1 className='text-black text-sm sm:text-lg md:text-xl lg:text-2xl h-4/10 items-center font-bold'>
+                  Foot Steps
+                </h1>
+              </div>
+              <div className='h-full w-[20%] bg-green-400 flex flex-col items-center rounded-xl'>
+                <h1 className='text-black text-lg sm:text-xl md:text-2xl lg:text-4xl h-6/10 flex items-center-safe font-bold'>
+                  {sleep}
+                </h1>
+                <h1 className='text-black text-sm sm:text-lg md:text-xl lg:text-2xl h-4/10 items-center font-bold'>
+                  Sleep
+                </h1>
+              </div>
+              <div className='h-full w-[20%] bg-green-400 flex flex-col items-center rounded-xl'>
+                <h1 className='text-black text-lg sm:text-xl md:text-2xl lg:text-4xl h-6/10 flex items-center-safe font-bold'>
+                  {water}
+                </h1>
+                <h1 className='text-black text-sm sm:text-lg md:text-xl lg:text-2xl h-4/10 items-center font-bold'>
+                  Water
+                </h1>
+              </div>
+          </div>
+          <div className='w-[90%] mt-[5vh] border-[0.5px] p-8 rounded-4xl'>
+            <div className="w-full">
+              <Line key={of} data={chartData} options={chartOptions} />
+            </div>
+          </div>
+      </div>
+      
       {/* <div className='w-[90%] h-[6vh] mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
         <h1
           className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'day' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const UnloggedHome = ({atTop}) => {
   return (
-    <div className={ (atTop?'mt-[18vh]':'mt-[5vh]') + ' w-[90%] mx-[5%] min-w-95 min-h-122 border-3 border-[#121212] rounded-4xl flex flex-col items-center text-white gap-4'}>
+    <div className={ (atTop?'mt-[45':'mt-13') + ' w-[90%] mx-[5%] min-w-95 min-h-122 border-3 border-[#121212] rounded-4xl flex flex-col items-center text-white gap-4'}>
         <div className='mt-10 w-[80%] flex justify-center font-zalando-expanded text-[4vw] text-white text-center'>
             <h1>Optimize Your Body with <span className='text-green-400 '>AI</span> <br />using <span className='text-green-400'> HEALiO.</span></h1>
         </div>
