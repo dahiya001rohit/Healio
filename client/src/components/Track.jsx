@@ -355,43 +355,43 @@ const Track = ({atTop}) => {
             </div>
             <div className='w-full min-h-15 mt-10 flex flex-wrap justify-center items-center font-roboto-condensed gap-8'>
               <h1
-                className={`lg:px-[1.5vw] lg:py-[0.5vh] lg:text-xl rounded-2xl cursor-pointer ${what === 'calories' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'calories' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={calClick}
               >
                 Calories
               </h1>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'protein' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'protein' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={proClick}
               >
                 Protein
               </h1>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'carbs' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'carbs' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={carClick}
               >
                 Carbs
               </h1>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'fats' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'fats' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={fatClick}
               >
                 Fats
               </h1>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'steps' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'steps' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={stepClick}
               >
                 Foot Steps
               </h1>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'water' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'water' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={watClick}
               >
                 Water
               </h1>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'sleep' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`px-4 py-2 md:px-[1.5vw] md:py-[0.5vh] test-sm md:text-xl rounded-2xl cursor-pointer ${what === 'sleep' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={slpClick}
               >
                 Sleep
