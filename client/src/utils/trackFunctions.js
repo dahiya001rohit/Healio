@@ -223,7 +223,8 @@ const trackFunctions = () => {
         weeklyTotals,
         monthlyTotals,
         weeklyAvg,
-        monthlyAvg
+        monthlyAvg,
+        getOnGoingWeek
     }
 }
 

@@ -87,6 +87,7 @@ const Track = ({atTop}) => {
   const [monthAvg, setMonthAvg] = useState(null)
 
   const [of, setOf] = useState('day')
+  const [what, setWhat] = useState('calories')
 
   const [calories, setCalories] = useState(0)
   const [steps, setSteps] = useState(0)
@@ -95,28 +96,68 @@ const Track = ({atTop}) => {
 
   const todaysDate = new Date()
 
-  const { groupByYear, groupByMonth, groupByWeek, dailyAvg, weeklyTotals, monthlyTotals, weeklyAvg, monthlyAvg} = trackFunctions()
+  const { groupByYear, groupByMonth, groupByWeek, dailyAvg, weeklyTotals, monthlyTotals, weeklyAvg, monthlyAvg, getOnGoingWeek} = trackFunctions()
 
   const dayClick = (e) => {
     setOf('day')
-    setCalories(dailyAvg(data)[todaysDate.getFullYear()]['avgCalories'])
-    setSleep(dailyAvg(data)[todaysDate.getFullYear()]['avgSleep'])
-    setSteps(dailyAvg(data)[todaysDate.getFullYear()]['avgSteps'])
-    setwater(dailyAvg(data)[todaysDate.getFullYear()]['avgWater'])
   }
   const weekClick = (e) => {
     setOf('week')
-    setCalories(weeklyAvg(data)[todaysDate.getFullYear()]['avgCalories'])
-    setSleep(weeklyAvg(data)[todaysDate.getFullYear()]['avgSleep'])
-    setSteps(weeklyAvg(data)[todaysDate.getFullYear()]['avgSteps'])
-    setwater(weeklyAvg(data)[todaysDate.getFullYear()]['avgWater'])
   }
   const monthClick = (e) => {
     setOf('month')
-    setCalories(monthlyAvg(data)[todaysDate.getFullYear()]['avgCalories'])
-    setSleep(monthlyAvg(data)[todaysDate.getFullYear()]['avgSleep'])
-    setSteps(monthlyAvg(data)[todaysDate.getFullYear()]['avgSteps'])
-    setwater(monthlyAvg(data)[todaysDate.getFullYear()]['avgWater'])
+  }
+  // Update stats when 'of', 'data', or 'todaysDate' changes
+  useEffect(() => {
+    if (!data) return;
+    const year = todaysDate.getFullYear();
+    if (of === 'day') {
+      const avg = dailyAvg(data)[year];
+      if (avg) {
+        setCalories(avg['avgCalories']);
+        setSleep(avg['avgSleep']);
+        setSteps(avg['avgSteps']);
+        setwater(avg['avgWater']);
+      }
+    } else if (of === 'week') {
+      const avg = weeklyAvg(data)[year];
+      if (avg) {
+        setCalories(avg['avgCalories']);
+        setSleep(avg['avgSleep']);
+        setSteps(avg['avgSteps']);
+        setwater(avg['avgWater']);
+      }
+    } else if (of === 'month') {
+      const avg = monthlyAvg(data)[year];
+      if (avg) {
+        setCalories(avg['avgCalories']);
+        setSleep(avg['avgSleep']);
+        setSteps(avg['avgSteps']);
+        setwater(avg['avgWater']);
+      }
+    }
+  }, [of, data, todaysDate]);
+
+  const calClick = (e) => {
+    setWhat('calories')
+  }
+  const proClick = (e) => {
+    setWhat('protein')
+  }
+  const carClick = (e) => {
+    setWhat('carbs')
+  }
+  const fatClick = (e) => {
+    setWhat('fats')
+  }
+  const stepClick = (e) => {
+    setWhat('steps')
+  }
+  const watClick = (e) => {
+    setWhat('water')
+  }
+  const slpClick = (e) => {
+    setWhat('sleep')
   }
 
   useEffect(() => {
@@ -136,7 +177,7 @@ const Track = ({atTop}) => {
   }, []);
 
   useEffect(() => {
-    if (!data) return;
+    if (!data || !what) return;
     const yearData = dailyAvg(data)[todaysDate.getFullYear()];
     console.log(yearData)
     if (yearData) {
@@ -145,29 +186,49 @@ const Track = ({atTop}) => {
       setSteps(yearData['avgSteps']);
       setwater(yearData['avgWater']);
     }
-    const chartValues = (data) => {
+    const chartValues = (data, what) => {
       let lableArr = []
       let dataArr = []
-      groupByYear(data)[todaysDate.getFullYear()].forEach( day => {
-        let d = (day.date.split('T')[0]).split('-')
-        lableArr.push(d[2] + '-' +  d[1])
-        dataArr.push(day.calories)
-      })
-      const dataa = {
-        labels: lableArr.slice(0, 10),
-        datasets: [
-          {
-            label: of,
-            data: dataArr.slice(0, 10),
-            borderColor: "#4ADE80",
-            borderWidth: 1,
-            pointRadius: 3.5,
-            pointBackgroundColor: "#fff",
-            pointBorderColor: "#fff",
-            backgroundColor: "rgba(75, 192, 192, 0.6)",
-            pointStyle: "rectRounded"
-          }
-        ]
+      let dataa = {}
+      if (of === 'day'){
+        groupByYear(data)[todaysDate.getFullYear()].forEach( (day) => {
+          let d = (day.date.split('T')[0]).split('-')
+          lableArr.push(d[2] + '-' +  d[1])
+          dataArr.push(day[what])
+        })
+      }
+
+      if(of === 'week'){
+        console.log(getOnGoingWeek(todaysDate))
+        console.log(groupByWeek(data))
+        groupByWeek(data)[todaysDate.getFullYear()][3].forEach(day => {
+          let d = (day.date.split('T')[0]).split('-')
+          lableArr.push(d[2] + '-' +  d[1])
+          dataArr.push(day[what])
+        })
+      }
+
+      if(of === 'month'){
+        groupByMonth(data)[todaysDate.getFullYear()][1].forEach(day => {
+          let d = (day.date.split('T')[0]).split('-')
+          lableArr.push(d[2] + '-' +  d[1])
+          dataArr.push(day[what])
+        })
+      }
+
+      dataa = {
+        labels: lableArr,
+        datasets: [{
+          label: what,
+          data: dataArr,
+          borderColor: "#4ADE80",
+          borderWidth: 1,
+          pointRadius: 3.5,
+          pointBackgroundColor: "#fff",
+          pointBorderColor: "#fff",
+          backgroundColor: "rgba(75, 192, 192, 0.6)",
+          pointStyle: "rectRounded"
+        }]
       };
 
       const options = {
@@ -204,13 +265,13 @@ const Track = ({atTop}) => {
           },
           y: {
             min: 0,
-            max: 3000,
+            max: (what === 'calories'? 3000:what === 'protein'?200:what ==='fats'?100:what === 'carbs'?300:what === 'steps'?15000:what === 'water'?4:what==='sleep'?10:1000),
             ticks: {
               stepSize: 100 // Gap of 50 between y-axis values
             },
             title: {
               display: true,
-              text: "Calories", // Y axis label
+              text: what, // Y axis label
               color: "#4ADE80", // Optional: label color
               font: {
                 size: 24,
@@ -224,10 +285,10 @@ const Track = ({atTop}) => {
 
       return {dataa, options}
     }
-    const {dataa, options} = chartValues(data)
+    const {dataa, options} = chartValues(data, what)
     setChartData(dataa)
     setChartOptions(options)
-  }, [data]);
+  }, [data, what, of]);
 
 
 
@@ -289,11 +350,55 @@ const Track = ({atTop}) => {
               </div>
           </div>
           <div className='w-[90%] mt-[5vh] border-[0.5px] p-8 rounded-4xl'>
-            <div className="w-full">
+            <div className="w-full h-[300px] md:h-[400px] lg:h-[500px]">
               <Line key={of} data={chartData} options={chartOptions} />
             </div>
+            <div className='w-full h-15 mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'calories' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={calClick}
+              >
+                Calories
+              </h1>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'protein' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={proClick}
+              >
+                Protein
+              </h1>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'carbs' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={carClick}
+              >
+                Carbs
+              </h1>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'fats' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={fatClick}
+              >
+                Fats
+              </h1>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'steps' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={stepClick}
+              >
+                Foot Steps
+              </h1>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'water' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={watClick}
+              >
+                Water
+              </h1>
+              <h1
+                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'sleep' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                onClick={slpClick}
+              >
+                Sleep
+              </h1>
+            </div>
           </div>
-      </div>
+        </div>
       
       {/* <div className='w-[90%] h-[6vh] mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
         <h1
