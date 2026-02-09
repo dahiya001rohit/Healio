@@ -349,13 +349,13 @@ const Track = ({atTop}) => {
                 </h1>
               </div>
           </div>
-          <div className='w-[90%] mt-[5vh] border-[0.5px] p-8 rounded-4xl'>
-            <div className="w-full h-[300px] md:h-[400px] lg:h-[500px]">
+          <div className='w-[90%] mt-[5vh] rounded-4xl'>
+            <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] flex flex-col items-center">
               <Line key={of} data={chartData} options={chartOptions} />
             </div>
-            <div className='w-full h-15 mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
+            <div className='w-full min-h-15 mt-10 flex flex-wrap justify-center items-center font-roboto-condensed gap-8'>
               <h1
-                className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${what === 'calories' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
+                className={`lg:px-[1.5vw] lg:py-[0.5vh] lg:text-xl rounded-2xl cursor-pointer ${what === 'calories' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
                 onClick={calClick}
               >
                 Calories
