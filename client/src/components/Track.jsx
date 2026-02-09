@@ -201,7 +201,7 @@ const Track = ({atTop}) => {
       if(of === 'week'){
         console.log(getOnGoingWeek(todaysDate))
         console.log(groupByWeek(data))
-        groupByWeek(data)[todaysDate.getFullYear()][3].forEach(day => {
+        groupByWeek(data)[todaysDate.getFullYear()][getOnGoingWeek(todaysDate)].forEach(day => {
           let d = (day.date.split('T')[0]).split('-')
           lableArr.push(d[2] + '-' +  d[1])
           dataArr.push(day[what])
@@ -209,7 +209,7 @@ const Track = ({atTop}) => {
       }
 
       if(of === 'month'){
-        groupByMonth(data)[todaysDate.getFullYear()][1].forEach(day => {
+        groupByMonth(data)[todaysDate.getFullYear()][todaysDate.getMonth() + 1].forEach(day => {
           let d = (day.date.split('T')[0]).split('-')
           lableArr.push(d[2] + '-' +  d[1])
           dataArr.push(day[what])
