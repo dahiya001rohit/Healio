@@ -167,6 +167,7 @@ const Track = ({atTop}) => {
         setDayAvg(dailyAvg(res.data.track))
         setWeekAvg(weeklyAvg(res.data.track))
         setMonthAvg(monthlyAvg(res.data.track))
+        console.log(res.data.track)
         setData(res.data.track)
         return
       } catch (error) {
@@ -177,7 +178,7 @@ const Track = ({atTop}) => {
   }, []);
 
   useEffect(() => {
-    if (!data || !what) return;
+    if ( !data || !what ) return;
     const yearData = dailyAvg(data)[todaysDate.getFullYear()];
     console.log(yearData)
     if (yearData) {
@@ -191,6 +192,7 @@ const Track = ({atTop}) => {
       let dataArr = []
       let dataa = {}
       if (of === 'day'){
+        console.log(groupByYear(data))
         groupByYear(data)[todaysDate.getFullYear()].forEach( (day) => {
           let d = (day.date.split('T')[0]).split('-')
           lableArr.push(d[2] + '-' +  d[1])
@@ -199,28 +201,28 @@ const Track = ({atTop}) => {
       }
 
       if(of === 'week'){
-        console.log(getOnGoingWeek(todaysDate))
-        console.log(groupByWeek(data))
-        groupByWeek(data)[todaysDate.getFullYear()][getOnGoingWeek(todaysDate)].forEach(day => {
-          let d = (day.date.split('T')[0]).split('-')
-          lableArr.push(d[2] + '-' +  d[1])
-          dataArr.push(day[what])
-        })
+        let weeklyData = (weeklyTotals(data)[todaysDate.getFullYear()])
+        for(let week in weeklyData){
+          let key = (what === 'calories'? 'totalCalories':what === 'protein'?'totalProtein':what ==='fats'?'totalFats':what === 'carbs'?'totalCarbs':what === 'steps'?'totalSteps':what === 'water'?'totalWater':what==='sleep'?'totalSleep':'totalCalories')
+          lableArr.push('Week' + week)
+          dataArr.push(weeklyData[week][key])
+        }
       }
 
       if(of === 'month'){
-        groupByMonth(data)[todaysDate.getFullYear()][todaysDate.getMonth() + 1].forEach(day => {
-          let d = (day.date.split('T')[0]).split('-')
-          lableArr.push(d[2] + '-' +  d[1])
-          dataArr.push(day[what])
-        })
+        let monthlyData = (monthlyTotals(data)[todaysDate.getFullYear()])
+        for(let month in monthlyData){
+          let key = (what === 'calories'? 'totalCalories':what === 'protein'?'totalProtein':what ==='fats'?'totalFats':what === 'carbs'?'totalCarbs':what === 'steps'?'totalSteps':what === 'water'?'totalWater':what==='sleep'?'totalSleep':'totalCalories')
+          lableArr.push('month' + month)
+          dataArr.push(monthlyData[month][key])
+        }
       }
 
       dataa = {
-        labels: lableArr,
+        labels: (of === 'day'?(lableArr.length > 10?lableArr.slice(-10):lableArr):of === 'week'?(lableArr.length > 10?lableArr.slice(-5):lableArr):lableArr),
         datasets: [{
           label: what,
-          data: dataArr,
+          data: (of === 'day'?(dataArr.length > 10?dataArr.slice(-10):dataArr):of === 'week'?(dataArr.length > 10?dataArr.slice(-5):dataArr):dataArr),
           borderColor: "#4ADE80",
           borderWidth: 1,
           pointRadius: 3.5,
@@ -265,7 +267,14 @@ const Track = ({atTop}) => {
           },
           y: {
             min: 0,
-            max: (what === 'calories'? 3000:what === 'protein'?200:what ==='fats'?100:what === 'carbs'?300:what === 'steps'?15000:what === 'water'?4:what==='sleep'?10:1000),
+            max: of === 'day'?
+                (what === 'calories'? 3000:what === 'protein'?200:what ==='fats'?100:what === 'carbs'?300:what === 'steps'?15000:what === 'water'?4:what==='sleep'?10:1000)
+                :
+                of === 'week'?
+                (what === 'calories'? 21000:what === 'protein'?1400:what ==='fats'?700:what === 'carbs'?2100:what === 'steps'?110000:what === 'water'?30:what==='sleep'?70:10000)
+                :
+                of === 'month'?
+                (what === 'calories'? 90000:what === 'protein'?6000:what ==='fats'?3000:what === 'carbs'?9000:what === 'steps'?450000:what === 'water'?120:what==='sleep'?300:10000):1000,
             ticks: {
               stepSize: 100 // Gap of 50 between y-axis values
             },

@@ -42,7 +42,10 @@ const Navbar = ({atTop, setAtTop, isLogged, logOut}) => {
                 >
                     <Link to="/" className="block px-4 py-3 hover:bg-green-400 hover:text-black rounded-t-2xl">HOME</Link>
                     {isLogged && (
-                        <Link to="/track" className="block px-4 py-3 hover:bg-green-400 hover:text-black">TRACK</Link>
+                        <>
+                            <Link to="/track" className="block px-4 py-3 hover:bg-green-400 hover:text-black">TRACK</Link>
+                            <Link to="/todays-update" className="block px-4 py-3 hover:bg-green-400 hover:text-black">TODAY'S UPDATE</Link>
+                        </>
                     )}
                     <Link to="/about" className="block px-4 py-3 hover:bg-green-400 hover:text-black">ABOUT</Link>
                     {isLogged ? (
