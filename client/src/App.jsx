@@ -32,6 +32,7 @@ const App = () => {
         <Route path='track' element={<ProctedRoutes>
           <Track atTop={atTop}/>
         </ProctedRoutes>}/>
+        <Route path='*' element={<Login atTop={atTop} isLogged = {isLogged} />}/>
       </Routes>
     </div>
   )

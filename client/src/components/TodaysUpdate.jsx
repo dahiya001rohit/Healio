@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import api from '../utils/api'
+import { useNavigate } from 'react-router-dom'
 
 const TodaysUpdate = ({atTop}) => {
     const [error, setError] = useState('')
@@ -12,6 +13,7 @@ const TodaysUpdate = ({atTop}) => {
     const [water, setWater] = useState('')
     const [sleep, setSleep] = useState('')
     const [workoutIntensity, setIntensity] = useState('Not Done')
+    const navigate = useNavigate()
 
     const validMeals = (mealsValue) => {
         if(!mealsValue || mealsValue.trim() === '') return false
@@ -48,7 +50,12 @@ const TodaysUpdate = ({atTop}) => {
             const res = await api.post('/todays-update', { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity})
             if(res.data.error){
                 setError(res.data.error)
-            } else {setError(null)}
+                alert(res.data.error)
+            } else {
+                setError(null)
+                alert('Update Successfull, redirecting Track page')
+                navigate('/track')
+            }
         } catch (error) {
             setError(error)
             return
@@ -106,7 +113,7 @@ const TodaysUpdate = ({atTop}) => {
                         {(error && error !== '') && <div className='flex justify-center text-red-500 mt-3'>
                             {error}
                         </div> }
-                        <div className='w-full flex justify-center mt-5'>
+                        <div className='w-full flex justify-center mt-5 gap-3'>
                             <button className='bg-green-400 text-[#121212] px-[2vw] py[1vh] rounded-3xl'>
                                 Add Update
                             </button>

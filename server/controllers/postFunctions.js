@@ -39,28 +39,41 @@ async function logInUser(req, res) {
 
 async function todaysUpdate(req, res) {
     const { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity} = req.body
-    const track = { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity, date: (new Date().toISOString().split('T')[0])}
+    const date = new Date().toISOString().split('T')[0]
     const user = req.user
+    
+    // Check if data already exists for today
+    const existingTrack = await DailyTrack.findOne({ userId: user.userId, date: date })
+    if (existingTrack) {
+        try {
+            const update = await DailyTrack.findOneAndUpdate(
+                { userId: user.userId, date: date }, 
+                { meals, calories, protein, carbs, fats, steps, water, sleep, workoutIntensity },
+                { new: true }
+            )
+            console.log(update)
+            return res.json({ success: `updated`, update })
+        } catch (error) {
+            return res.json({ error })
+        }
+    }
+
     try {
         const update = await DailyTrack.create({
             userId: user.userId,
-            date: track.date,
-
-            meals: track.meals, 
-            calories: track.calories, 
-            protein: track.protein, 
-            carbs: track.carbs, 
-            fats: track.fats, 
-            steps: track.steps, 
-            water: track.water, 
-            sleep: track.sleep, 
-            workoutIntensity: track.workoutIntensity
-
+            date,
+            meals, 
+            calories, 
+            protein, 
+            carbs, 
+            fats, 
+            steps, 
+            water, 
+            sleep, 
+            workoutIntensity
         })
-        console.log(update)
-        return res.json({ success: `success`})
+        return res.json({ success: `success`, update })
     } catch (error) {
-        if(error.code === 11000) return res.json({ error: `Cannot update twice a day` })
         return res.json({ error })
     }
     
