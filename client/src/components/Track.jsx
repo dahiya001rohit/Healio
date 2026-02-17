@@ -82,9 +82,6 @@ const Track = ({atTop}) => {
       }
   )
   const [data, setData] = useState(null)
-  const [dayAvg, setDayAvg] = useState(null)
-  const [weekAvg, setWeekAvg] = useState(null)
-  const [monthAvg, setMonthAvg] = useState(null)
 
   const [of, setOf] = useState('day')
   const [what, setWhat] = useState('calories')
@@ -180,7 +177,6 @@ const Track = ({atTop}) => {
   useEffect(() => {
     if ( !data || !what ) return;
     const yearData = dailyAvg(data)[todaysDate.getFullYear()];
-    console.log(yearData)
     if (yearData) {
       setCalories(yearData['avgCalories']);
       setSleep(yearData['avgSleep']);
@@ -408,77 +404,6 @@ const Track = ({atTop}) => {
             </div>
           </div>
         </div>
-      
-      {/* <div className='w-[90%] h-[6vh] mt-10 flex justify-center items-center font-roboto-condensed gap-8'>
-        <h1
-          className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'day' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
-          onClick={dayClick}
-        >
-          Daily
-        </h1>
-        <h1
-          className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'week' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
-          onClick={weekClick}
-        >
-          Weekly
-        </h1>
-        <h1
-          className={`px-[1.5vw] py-[0.5vh] text-xl rounded-2xl cursor-pointer ${of === 'month' ? 'bg-green-400 text-black' : 'bg-[#121212] text-white font-light '}`}
-          onClick={monthClick}
-        >
-          Monthly
-        </h1>
-      </div>
-      <div className='w-9/10 min-h-250 h-[90vh] bg-[#121212] rounded-4xl flex flex-col items-center justify-center font-roboto-condensed'>
-          <div className='w-9/10 h-9/10 flex flex-col justify-around items-center'>
-            <div className='w-8/10 h-15/100 flex justify-center gap-5'>
-              <div className='w-22/100 min-w-37 h-9/10 bg-green-400 rounded-4xl flex justify-center items-center'>
-                <div className='w-85/100 h-85/100 flex flex-col justify-around items-center'>
-                    <h1 className='text-black text-5xl h-6/10 flex items-center font-bold'>
-                      {calories}
-                    </h1>
-                    <h1 className='text-black text-2xl h-4/10 flex items-center font-bold'>
-                      Calories
-                    </h1>
-                </div>
-              </div>
-              <div className='w-22/100 min-w-37 h-9/10 bg-green-400 rounded-4xl flex justify-center items-center'>
-                <div className='w-85/100 h-85/100 flex flex-col justify-around items-center'>
-                    <h1 className='text-black text-5xl h-6/10 flex items-center font-bold'>
-                      {steps}
-                    </h1>
-                    <h1 className='text-black text-2xl h-4/10 flex items-center font-bold'>
-                      Foot Steps
-                    </h1>
-                </div>
-              </div>
-              <div className='w-22/100 min-w-37 h-9/10 bg-green-400 rounded-4xl flex justify-center items-center'>
-                <div className='w-85/100 h-85/100 flex flex-col justify-around items-center'>
-                    <h1 className='text-black text-5xl h-6/10 flex items-center font-bold'>
-                      {sleep}
-                    </h1>
-                    <h1 className='text-black text-2xl h-4/10 flex items-center font-bold'>
-                      Sleep
-                    </h1>
-                </div>
-              </div>
-              <div className='w-22/100 min-w-37 h-9/10 bg-green-400 rounded-4xl flex justify-center items-center'>
-                <div className='w-85/100 h-85/100 flex flex-col justify-around items-center'>
-                    <h1 className='text-black text-5xl h-6/10 flex items-center font-bold'>
-                      {water}
-                    </h1>
-                    <h1 className='text-black text-2xl h-4/10 flex items-center font-bold'>
-                      Water
-                    </h1>
-                </div>
-              </div>
-            </div>
-            <div className='w-full h-78/100 border p-8 rounded-4xl flex flex-col items-center'>
-              <Line data={chartData} options={chartOptions} />
-              hi
-            </div>
-          </div>
-      </div> */}
     </div>
   )
 }
