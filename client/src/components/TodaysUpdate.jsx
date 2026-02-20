@@ -36,7 +36,7 @@ const TodaysUpdate = ({atTop}) => {
         }
         return true;
     }
-
+    // fix this
     const handleOnSubmit = async(e) => {
         e.preventDefault()
         if(!validMeals(meals)){
@@ -73,7 +73,7 @@ const TodaysUpdate = ({atTop}) => {
                             <input type="text" className='w-45 border border-green-400 text-xs py-[0.5vh] px-2 rounded-2xl' placeholder="Egg, Chicken etc." value={meals} onChange={(e) => setMeals(e.target.value)}/>
                         </div>
                         <div className='flex gap-4 mt-1'>
-                            <h1 className='mx-1'>Calories (in cal):</h1>
+                            <h1 className='mx-1'>c (in cal):</h1>
                             <input type='number' className='w-30 border border-green-400 text-xs py-[0.5vh] px-2 rounded-2xl' placeholder="2500" value={calories} onChange={(e) => setCalories(e.target.value)}/>
                         </div>
                         <div className='flex gap-4 mt-1'>
