@@ -9,8 +9,8 @@ const Navbar = ({ isLogged, logOut }) => {
     }
 
   return (
-    <div ref={navBar} className='w-[85%] h-20 pt-5 flex flex-col justify-between fixed overflow-hidden z-2 bg-[#F3F4E5] border-b items-center'>
-        <div className='w-full h-full flex justify-between items-center '>
+    <div ref={navBar} className='w-[85%] h-20 pt-5 flex flex-col justify-between fixed z-50 bg-[#F3F4E5] items-center'>
+        <div className='w-full h-full flex justify-between items-center border-b'>
             <div className='font-bebas text-4xl text-green-400 items-center'>Heal<span className='font-roboto text-3xl'>i</span>o</div>
             <div className='flex gap-2.5 md:hidden'>
                 <div className='bg-black text-white px-2.5 py-1 flex items-center font-roboto-condensed font-bold hover:bg-green-400 transition duration-300 cursor-pointer md:hidden border-b-4' onClick={onMenuClicked}>
@@ -36,7 +36,7 @@ const Navbar = ({ isLogged, logOut }) => {
                 </div>
             </div>
         </div>
-        <div className={`w-full bg-[#F3F4E5] ${ menuClicked?'flex flex-col':'hidden'} justify-between items-center md:hidden opacity-100 z-2 transition-all duration-1000 px-[5%]`}>
+        <div className={`w-full left-0 absolute top-20 bg-[#F3F4E5] ${ menuClicked?'flex flex-col':'hidden'} justify-between items-center md:hidden opacity-100 z-9999 transition-all duration-1000 px-[5%] pb-3`}>
             <Link className='w-full h-10 flex items-center border-b justify-end font-roboto-condensed font-bold hover:bg-green-500' to='/' >Home</Link>
             {isLogged && <>
                 <Link className='w-full h-10 flex items-center border-b justify-end font-roboto-condensed font-bold hover:bg-green-500'>Today's Update</Link>
