@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../utils/api'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = ({atTop, isLogged}) => {
     const navigate = useNavigate()
@@ -66,7 +66,7 @@ const SignUp = ({atTop, isLogged}) => {
   return (
     <div className={ (atTop?'mt-[18vh]':'mt-[5vh]') + ' min-w-3xl h-[90vh] border-[1.5px] border-[#121212] mx-[6vw] rounded-4xl flex flex-col items-center justify-center text-white gap-4 font-roboto-condensed'}>
             <div className='w-8/10 h-8/10 flex flex-col items-center justify-around bg-[#121212] rounded-3xl'>
-                <div className='w-[80%] flex justify-center font-zalando-expanded text-4xl text-green-400 '>Welcome...</div>
+                <div className='w-[80%] flex justify-center font-zalando-expanded text-4xl text-green-400 '>Welcome New User</div>
                 <form className='w-full flex flex-col items-center' onSubmit={handleOnSubmit}>
                     <div className='flex gap-4 items-center'>
                         <h4 className='mx-1 text-sm'>Name:</h4>
@@ -86,7 +86,7 @@ const SignUp = ({atTop, isLogged}) => {
                     </div>
                 </form>
                 <div className='flex justify-center items-center'>
-                    <h5 className=' text-md'>New user? <span className='text-green-400 hover:underline'><a href="#">Login</a></span></h5>
+                    <span className='text-md'>New user? <Link to='/login' className='text-green-400 hover:underline'>Login</Link></span>
                 </div>
             </div>
         </div>

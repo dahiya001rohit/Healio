@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const HeroLanding = ( isLogged ) => {
   return (
-    <div className='w-full h-full  flex flex-col justify-around items-center mt-5 '>
+    <div className='w-full h-full min-h-[85vh]  flex flex-col justify-around items-center mt-5 '>
         <div className='w-[90%] h-[50%] flex flex-col font-bbh-bartle items-center text-center text-3xl sm:text-4xl md:text-6xl lg:text-7xl '>
             <h1>
                 Track. <br />
@@ -13,13 +13,13 @@ const HeroLanding = ( isLogged ) => {
             <span className='text-black font-bebas text-3xl'>Let's Track your Journey with</span> <br /> <span className='text-green-400 font-bebas text-4xl'>HEALiO.</span>
             </h1>
             <div className='w-25 h-10 bg-green-400 text-lg text-black px-2.5 py-1 flex items-center justify-center font-roboto-condensed font-bold transition duration-300 cursor-pointer border-b-2 hover:bg-black hover:text-green-400 mt-5' >
-                    <Link to='signup'>Let's Track</Link>
+                    <Link to='/login'>Let's Track</Link>
             </div>
             <h1 className='text-sm lg:text-lg font-roboto-condensed mt-10 text-gray-400 '>
                 Precision <span className='font-bold text-green-400'>NUTRTION</span> and <span className='font-bold text-green-400'>WORKOUT</span> analytics for serious athletes. <br />
             </h1>
         </div>
-        <div className='w-[90%]  rounded-b-4xl bg-green-400 flex flex-wrap items-center justify-center xl:justify-around gap-3 p-4 my-6'>
+        <div className='w-[90%] border rounded-b-4xl bg-green-400 flex flex-wrap items-center justify-center xl:justify-around gap-3 p-4 my-6'>
             <div className='w-full xl:w-[48%] h-35  p-4 flex justify-between items-center '>
                 <div className='w-[45%] h-[90%] text-center text-[10px] sm:text-sm lg:text-2xl xl:text-lg font-bbh-bartle flex flex-col lg:flex-row  xl:flex-col items-center justify-center '>
                     <svg className='w-10 xs:w-12 sm:w-15' xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame-icon lucide-flame"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></svg>
