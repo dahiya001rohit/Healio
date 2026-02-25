@@ -8,7 +8,11 @@
   --font-roboto: "Roboto", sans-serif;
   --font-roboto-condensed: "Roboto Condensed", sans-serif;
   --font-zalando-expanded: "Zalando Sans Expanded", sans-serif;
+  --breakpoint-xs: 440px;
+  --breakpoint-xl: 1214px;
+  --breakpoint-lg: 920px;
 };
+
 
 body, html {
   height: 100%;
@@ -16,4 +20,5 @@ body, html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #f3f4e5;
 }

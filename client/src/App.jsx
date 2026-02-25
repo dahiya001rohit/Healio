@@ -14,16 +14,17 @@ const App = () => {
     const [atTop, setAtTop] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
     const { token, user, logOut} = useAuth()
+    const [scrolled, setScrolled] = useState(false)
     useEffect(() => {
       if(token && user){
         setIsLogged(true);
       }
     }, [token, user]);
   return (
-    <div className='flex flex-col bg-[#F3F4E5] px-[7.5%]'>
-      <Navbar atTop={atTop} setAtTop ={setAtTop} isLogged = {isLogged} logOut = {logOut}/>
+    <div className='w-full h-full flex flex-col bg-[#F3F4E5] px-[7.5%]'>
+      <Navbar scrolled={scrolled} setScrolled ={setScrolled} isLogged = {isLogged} logOut = {logOut}/>
       <Routes>
-        <Route path='/' element = {isLogged?<LoggedHome atTop={atTop} user = {user} />:<LandingPage atTop={atTop} />} />
+        <Route path='/' element = {isLogged?<LoggedHome atTop={atTop} user = {user} />:<LandingPage scrolled={scrolled} />} />
         <Route path='/login' element={<Login atTop={atTop} isLogged = {isLogged} />}/>
         <Route path='/signup' element={<SignUp atTop={atTop} isLogged = {isLogged} />}/>
         <Route path='/todays-update' element={<ProctedRoutes>

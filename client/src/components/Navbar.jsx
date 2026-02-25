@@ -1,19 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Navbar = ({ isLogged, logOut }) => {
     const navBar = useRef(null)
-        const [menuClicked, setMenuClicked] = useState(false)
-    const onMenuClicked = () => {
-            setMenuClicked((prev) => !prev)
-    }
-
+    const [menuClicked, setMenuClicked] = useState(false)
   return (
-    <div ref={navBar} className='w-[85%] h-20 pt-5 flex flex-col justify-between fixed z-50 bg-[#F3F4E5] items-center'>
+        <div
+            ref={navBar}
+            className={`fixed w-[85%] h-20 pt-5 flex flex-col justify-between z-50 bg-[#F3F4E5] items-center`}
+        >
         <div className='w-full h-full flex justify-between items-center border-b'>
             <div className='font-bebas text-4xl text-green-400 items-center'>Heal<span className='font-roboto text-3xl'>i</span>o</div>
             <div className='flex gap-2.5 md:hidden'>
-                <div className='bg-black text-white px-2.5 py-1 flex items-center font-roboto-condensed font-bold hover:bg-green-400 transition duration-300 cursor-pointer md:hidden border-b-4' onClick={onMenuClicked}>
+                <div className='bg-black text-white px-2.5 py-1 flex items-center font-roboto-condensed font-bold hover:bg-green-400 transition duration-300 cursor-pointer md:hidden border-b-4' onClick={() => {setMenuClicked((prev) => !prev)}}>
                     <h1>MENU</h1>
                 </div>
                 <div className='bg-black text-green-400 px-2.5 py-1 flex items-center font-roboto-condensed font-bold transition duration-300 cursor-pointer md:hidden border-b-4' >
@@ -28,9 +27,9 @@ const Navbar = ({ isLogged, logOut }) => {
                 <Link className='h-10 flex items-center justify-end font-roboto-condensed font-bold hover:bg-green-500 px-4' to='/about'>About Us</Link>
             </div>
             <div className='hidden md:flex gap-2.5'>
-                <div className='bg-black text-red-500 px-2.5 py-1 flex items-center font-roboto-condensed font-bold hover:bg-red-500 hover:text-black transition duration-300 cursor-pointer  border-b-2' onClick={logOut}>
+                {isLogged && <div className='bg-black text-red-500 px-2.5 py-1 flex items-center font-roboto-condensed font-bold hover:bg-red-500 hover:text-black transition duration-300 cursor-pointer  border-b-2' onClick={logOut}>
                     <h1>LogOut</h1>
-                </div>
+                </div>}
                 <div className='w-25 bg-black text-green-400 px-2.5 py-1 flex items-center justify-center font-roboto-condensed font-bold transition duration-300 cursor-pointer border-b-2 hover:bg-green-400 hover:text-black' >
                     <Link to={isLogged?'/track':'signup'}>Let's Track</Link>
                 </div>
