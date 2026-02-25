@@ -21,7 +21,7 @@ const App = () => {
       }
     }, [token, user]);
   return (
-    <div className='w-full h-full flex flex-col bg-[#F3F4E5] px-[7.5%]'>
+    <div className='w-full h-full flex flex-col bg-[#F3F4E5] px-[7.5%] overflow-hidden'>
       <Navbar scrolled={scrolled} setScrolled ={setScrolled} isLogged = {isLogged} logOut = {logOut}/>
       <Routes>
         <Route path='/' element = {isLogged?<LoggedHome atTop={atTop} user = {user} />:<LandingPage scrolled={scrolled} />} />
