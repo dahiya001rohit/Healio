@@ -12,11 +12,11 @@ const Navbar = ({ isLogged, logOut }) => {
         <div className='w-full h-full flex justify-between items-center border-b'>
             <div className='font-bebas text-4xl text-green-400 items-center'>Heal<span className='font-roboto text-3xl'>i</span>o</div>
             <div className='flex gap-2.5 md:hidden'>
-                <div className='bg-black text-white px-2.5 py-1 flex items-center font-roboto-condensed font-bold hover:bg-green-400 transition duration-300 cursor-pointer md:hidden border-b-4' onClick={() => {setMenuClicked((prev) => !prev)}}>
+                <div className='bg-green-400 text-black hover:text-green-400 hover:bg-black px-2.5 py-1 flex items-center font-roboto-condensed font-bold transition duration-300 cursor-pointer md:hidden border-b-2' onClick={() => {setMenuClicked((prev) => !prev)}}>
                     <h1>MENU</h1>
                 </div>
-                <div className='bg-black text-green-400 px-2.5 py-1 flex items-center font-roboto-condensed font-bold transition duration-300 cursor-pointer md:hidden border-b-4' >
-                    <Link to={isLogged?'/track':'login'}>Track</Link>
+                <div className='bg-green-400 text-black hover:text-green-400 hover:bg-black px-2.5 py-1 flex items-center font-roboto-condensed font-bold transition duration-300 cursor-pointer md:hidden border-b-2' >
+                    <Link to={isLogged?'/track':'login'}>Let's Track</Link>
                 </div>
             </div>
             <div className='w-full hidden md:flex gap-4 justify-center'>
