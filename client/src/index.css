@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..400;1,9..40,300..400&family=Syne:wght@800&display=swap");
 
 @import "tailwindcss";
 
@@ -8,13 +9,19 @@
   --font-roboto: "Roboto", sans-serif;
   --font-roboto-condensed: "Roboto Condensed", sans-serif;
   --font-zalando-expanded: "Zalando Sans Expanded", sans-serif;
+  --font-syne: "Syne", sans-serif;
+  --font-dmsans: "DM Sans", sans-serif;
+  --color-brand-black: #0a0a0a;
+  --color-brand-surface: #111111;
+  --color-brand-accent: #4ade80;
+  --color-brand-border: rgba(255, 255, 255, 0.07);
   --breakpoint-xs: 440px;
   --breakpoint-xl: 1214px;
   --breakpoint-lg: 920px;
-};
+}
 
-
-body, html {
+body,
+html {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -22,3 +29,84 @@ body, html {
   box-sizing: border-box;
   background-color: #f3f4e5;
 }
+
+/* Stitch design utilities */
+.syne-headline {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-bg-layers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 20%,
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 50%,
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 80%,
+    radial-gradient(
+      ellipse 55% 45% at 65% 55%,
+      rgba(74, 222, 128, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    24px 24px;
+}
+
+.ghost-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: 280px;
+  color: rgba(255, 255, 255, 0.015);
+  letter-spacing: -8px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bento-card {
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.label-mono {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes wordCycle {
+  0%,
+  25%,
+  100% {
+    color: #ffffff;
+  }
+  33% {
+    color: #4ade80;
+  }
+}
+.animate-word {
+  animation: wordCycle 3s infinite;
+}
+.animate-word-1 { animation-delay: 0s; }
+.animate-word-2 { animation-delay: 1s; }
+.animate-word-3 { animation-delay: 2s; }
