@@ -6,7 +6,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-      <div className="glass-pill w-full max-w-5xl h-14 flex items-center justify-between px-6 rounded-full">
+      <div className="glass-pill w-full max-w-7xl h-16 flex items-center justify-between px-8 rounded-full">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <span className="syne-headline text-xl tracking-tighter text-brand-accent">

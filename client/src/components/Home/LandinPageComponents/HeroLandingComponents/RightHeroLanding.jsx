@@ -24,9 +24,7 @@ const RightHeroLanding = () => {
         >
           Start for free
         </Link>
-        <button className="text-white/50 px-10 py-2 text-sm font-medium hover:text-white transition-colors flex items-center gap-2 font-dmsans">
-          See how it works <span className="text-lg">→</span>
-        </button>
+
       </div>
     </div>
   )

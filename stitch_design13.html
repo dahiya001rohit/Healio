@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HEALIO | Fitness Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&amp;family=DM+Sans:wght@300;400;500&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4ade80",
+                        "surface": "#111111",
+                        "background-dark": "#0a0a0a",
+                    },
+                    fontFamily: {
+                        "display": ["Syne", "sans-serif"],
+                        "body": ["DM Sans", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .label-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .heading-syne {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .card-border {
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-slate-100 antialiased overflow-hidden h-screen">
+<div class="flex h-full w-full overflow-hidden">
+<!-- Side Navigation -->
+<aside class="w-64 flex flex-col h-full bg-surface card-border border-l-0 border-t-0 border-b-0 py-8 px-6">
+<div class="mb-12">
+<h1 class="heading-syne text-primary text-2xl tracking-tighter">HEALIO</h1>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary group transition-all" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">fitness_center</span>
+<span class="text-sm font-medium">Workouts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">nutrition</span>
+<span class="text-sm font-medium">Nutrition</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">bedtime</span>
+<span class="text-sm font-medium">Sleep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-8">
+<div class="bg-primary/5 p-4 rounded-xl card-border">
+<p class="label-mono text-primary mb-1">PRO PLAN</p>
+<p class="text-xs text-slate-400 mb-3">Get advanced analytics &amp; insights.</p>
+<button class="w-full bg-primary text-background-dark py-2 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-primary/90 transition-colors">Upgrade</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar">
+<!-- Top Bar -->
+<header class="flex items-center justify-between px-10 py-6 sticky top-0 bg-background-dark/80 backdrop-blur-md z-10">
+<h2 class="heading-syne text-xl">DASHBOARD</h2>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+<input class="bg-surface card-border rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:outline-none focus:ring-1 focus:ring-primary/50 text-slate-300 placeholder:text-slate-600" placeholder="Search data..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center card-border overflow-hidden">
+<div class="w-full h-full bg-slate-800" data-alt="Abstract gradient profile representation"></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Bento Grid -->
+<div class="px-10 pb-12">
+<div class="grid grid-cols-12 gap-6">
+<!-- 01 / DAILY OVERVIEW (Wide Card) -->
+<div class="col-span-12 lg:col-span-8 bg-surface card-border rounded-xl p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="label-mono text-slate-500 mb-2">01 / DAILY OVERVIEW</p>
+<h3 class="heading-syne text-3xl">1,240 <span class="text-primary tracking-tighter text-lg uppercase">KCAL REMAINING</span></h3>
+</div>
+<div class="flex gap-4">
+<div class="text-right">
+<p class="label-mono text-slate-500">CONSUMED</p>
+<p class="font-medium">1,450</p>
+</div>
+<div class="text-right">
+<p class="label-mono text-slate-500">BURNED</p>
+<p class="font-medium">690</p>
+</div>
+</div>
+</div>
+<!-- Smooth Area Chart Placeholder -->
+<div class="h-48 w-full mt-4">
+<svg class="w-full h-full" viewbox="0 0 800 200">
+<defs>
+<lineargradient id="chartGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4ade80" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#4ade80" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,150 Q50,140 100,160 T200,100 T300,120 T400,60 T500,80 T600,40 T700,90 T800,50 L800,200 L0,200 Z" fill="url(#chartGradient)"></path>
+<path d="M0,150 Q50,140 100,160 T200,100 T300,120 T400,60 T500,80 T600,40 T700,90 T800,50" fill="none" stroke="#4ade80" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+<!-- Stacked Bar for Macros -->
+<div class="grid grid-cols-3 gap-8 mt-8">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="label-mono text-slate-400">PROTEIN</span>
+<span class="text-xs font-mono">120/160G</span>
+</div>
+<div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="label-mono text-slate-400">CARBS</span>
+<span class="text-xs font-mono">180/250G</span>
+</div>
+<div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 w-[72%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="label-mono text-slate-400">FATS</span>
+<span class="text-xs font-mono">45/70G</span>
+</div>
+<div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary/30 w-[64%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 02 / AI COACH INSIGHT -->
+<div class="col-span-12 lg:col-span-4 bg-surface card-border rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 blur-[80px] group-hover:bg-primary/20 transition-all duration-700"></div>
+<p class="label-mono text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span> AI COACH
+                        </p>
+<h4 class="heading-syne text-xl mb-4 leading-tight">"YOUR RECOVERY IS OPTIMAL FOR A HEAVY SESSION TODAY."</h4>
+<p class="text-slate-400 text-sm leading-relaxed font-light">Heart rate variability is up 12% and sleep quality index reached 88/100. Recommendation: Push for a new PR in Deadlifts.</p>
+<button class="mt-6 flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest group">
+                            VIEW TRAINING PLAN 
+                            <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- 03 / TODAY'S WORKOUT -->
+<div class="col-span-12 lg:col-span-4 bg-surface card-border rounded-xl p-8">
+<p class="label-mono text-slate-500 mb-6 uppercase">02 / TODAY'S WORKOUT</p>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+<div>
+<p class="font-medium text-sm">Deadlifts</p>
+<p class="label-mono text-slate-500">4 SETS × 8 REPS</p>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+<div>
+<p class="font-medium text-sm">Pull-ups (Weighted)</p>
+<p class="label-mono text-slate-500">3 SETS × 10 REPS</p>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+<div>
+<p class="font-medium text-sm">Barbell Rows</p>
+<p class="label-mono text-slate-500">4 SETS × 12 REPS</p>
+</div>
+<span class="material-symbols-outlined text-slate-700">circle</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+<div>
+<p class="font-medium text-sm">Hammer Curls</p>
+<p class="label-mono text-slate-500">3 SETS × 15 REPS</p>
+</div>
+<span class="material-symbols-outlined text-slate-700">circle</span>
+</div>
+</div>
+</div>
+<!-- 04 / SLEEP TRACKER -->
+<div class="col-span-12 lg:col-span-4 bg-surface card-border rounded-xl p-8 flex flex-col justify-between">
+<div>
+<p class="label-mono text-slate-500 mb-2 uppercase">03 / SLEEP TRACKER</p>
+<div class="flex items-baseline gap-2">
+<h3 class="heading-syne text-4xl">8.5</h3>
+<span class="text-slate-400 label-mono">HR TOTAL</span>
+</div>
+</div>
+<div class="mt-8 space-y-4">
+<div class="h-6 w-full flex rounded overflow-hidden">
+<div class="h-full bg-primary/80 w-[20%]" title="Deep"></div>
+<div class="h-full bg-primary/50 w-[50%]" title="Light"></div>
+<div class="h-full bg-primary/20 w-[30%]" title="REM"></div>
+</div>
+<div class="flex justify-between text-[10px] label-mono text-slate-500">
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary/80"></span> DEEP (1.5H)</div>
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary/50"></span> LIGHT (4H)</div>
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary/20"></span> REM (3H)</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-white/5">
+<p class="label-mono text-slate-500 mb-4">WEEKLY TREND</p>
+<div class="flex items-end justify-between h-12 px-2">
+<div class="w-2 bg-primary/20 rounded-t h-8"></div>
+<div class="w-2 bg-primary/20 rounded-t h-10"></div>
+<div class="w-2 bg-primary/20 rounded-t h-9"></div>
+<div class="w-2 bg-primary/20 rounded-t h-12"></div>
+<div class="w-2 bg-primary/20 rounded-t h-10"></div>
+<div class="w-2 bg-primary rounded-t h-11"></div>
+<div class="w-2 bg-slate-800 rounded-t h-6"></div>
+</div>
+</div>
+</div>
+<!-- 05 / FOOTSTEP MONITOR -->
+<div class="col-span-12 lg:col-span-4 bg-surface card-border rounded-xl p-8">
+<p class="label-mono text-slate-500 mb-2 uppercase">04 / FOOTSTEP MONITOR</p>
+<h3 class="heading-syne text-3xl mb-1">10,101 <span class="text-sm font-mono text-slate-500">STEPS</span></h3>
+<div class="flex gap-4 mb-8">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary">distance</span>
+<span class="text-xs font-mono">7.2 KM</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary">local_fire_department</span>
+<span class="text-xs font-mono">340 KCAL</span>
+</div>
+</div>
+<div class="h-32 w-full">
+<svg class="w-full h-full" viewbox="0 0 400 120">
+<path d="M0,100 L20,95 L40,98 L60,85 L80,90 L100,70 L120,65 L140,80 L160,50 L180,45 L200,60 L220,30 L240,40 L260,20 L280,35 L300,15 L320,25 L340,10 L360,30 L380,40 L400,35 L400,120 L0,120 Z" fill="rgba(74, 222, 128, 0.15)"></path>
+<path d="M0,100 L20,95 L40,98 L60,85 L80,90 L100,70 L120,65 L140,80 L160,50 L180,45 L200,60 L220,30 L240,40 L260,20 L280,35 L300,15 L320,25 L340,10 L360,30 L380,40 L400,35" fill="none" stroke="#4ade80" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-2 text-[8px] label-mono text-slate-600">
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+</div>
+</div>
+<!-- 06 / WATER INTAKE -->
+<div class="col-span-12 lg:col-span-3 bg-surface card-border rounded-xl p-8">
+<p class="label-mono text-slate-500 mb-6 uppercase">05 / HYDRATION</p>
+<div class="flex gap-4 h-48 items-end justify-between px-2">
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-primary/20 rounded-t h-[30%]"></div>
+<span class="text-[9px] label-mono text-slate-600">MOR</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-primary/40 rounded-t h-[60%]"></div>
+<span class="text-[9px] label-mono text-slate-600">AFT</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-primary/10 rounded-t h-[15%]"></div>
+<span class="text-[9px] label-mono text-slate-600">EVE</span>
+</div>
+</div>
+<div class="mt-6 text-center">
+<p class="text-2xl font-mono">1.8 <span class="text-xs text-slate-500">/ 3.0L</span></p>
+</div>
+</div>
+<!-- 07 / WEEKLY ACTIVITY -->
+<div class="col-span-12 lg:col-span-9 bg-surface card-border rounded-xl p-8">
+<div class="flex justify-between items-center mb-8">
+<p class="label-mono text-slate-500 uppercase">06 / WEEKLY ACTIVITY TREND</p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white/5 rounded-full text-[10px] font-mono border border-white/5">AVG: 82 MIN</span>
+</div>
+</div>
+<div class="h-48 w-full">
+<svg class="w-full h-full" viewbox="0 0 1000 200">
+<path d="M0,150 L166,120 L332,160 L498,80 L664,100 L830,40 L1000,70" fill="none" stroke="#4ade80" stroke-dasharray="4" stroke-width="2"></path>
+<circle cx="166" cy="120" fill="#4ade80" r="4"></circle>
+<circle cx="332" cy="160" fill="#4ade80" r="4"></circle>
+<circle cx="498" cy="80" fill="#4ade80" r="4"></circle>
+<circle cx="664" cy="100" fill="#4ade80" r="4"></circle>
+<circle cx="830" cy="40" fill="#4ade80" r="4"></circle>
+<circle cx="1000" cy="70" fill="#4ade80" r="4"></circle>
+<text fill="#64748b" font-family="JetBrains Mono" font-size="12" text-anchor="middle" x="166" y="190">MON</text>
+<text fill="#64748b" font-family="JetBrains Mono" font-size="12" text-anchor="middle" x="332" y="190">TUE</text>
+<text fill="#64748b" font-family="JetBrains Mono" font-size="12" text-anchor="middle" x="498" y="190">WED</text>
+<text fill="#64748b" font-family="JetBrains Mono" font-size="12" text-anchor="middle" x="664" y="190">THU</text>
+<text fill="#64748b" font-family="JetBrains Mono" font-size="12" text-anchor="middle" x="830" y="190">FRI</text>
+<text fill="#64748b" font-family="JetBrains Mono" font-size="12" text-anchor="middle" x="1000" y="190">SAT</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
