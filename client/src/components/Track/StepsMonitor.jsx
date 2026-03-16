@@ -31,7 +31,7 @@ const CustomTooltip = ({ active, payload }) => {
 
 const StepsMonitor = () => {
   return (
-    <div className="col-span-12 lg:col-span-4 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between min-h-[420px]">
+    <div className="col-span-12 lg:col-span-4 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between h-[420px]">
       <p className="label-mono text-slate-500 mb-2 uppercase">04 / FOOTSTEP MONITOR</p>
       <h3 className="heading-syne text-3xl text-white mb-1">
         10,101 <span className="text-sm font-mono text-slate-500">STEPS</span>
@@ -48,7 +48,7 @@ const StepsMonitor = () => {
       </div>
 
       {/* Recharts Area Chart */}
-      <div className="flex-1 w-full mt-4 min-h-[160px]">
+      <div className="flex-1 min-h-0 w-full mt-4">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={StepsData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
             <defs>

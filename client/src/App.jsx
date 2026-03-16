@@ -3,6 +3,8 @@ import Navbar from './Pages/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
 import Track from './Pages/Track'
+import Login from './Pages/Login'
+import SignUp from './Pages/SignUp'
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
             <Track />
           </>
         } />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
       </Routes>
     </div>
   )

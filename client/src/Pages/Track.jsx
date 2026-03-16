@@ -5,13 +5,14 @@ import AiCoach from '../components/Track/AiCoach'
 import TodaysWorkout from '../components/Track/TodaysWorkout'
 import SleepTracker from '../components/Track/SleepTracker'
 import StepsMonitor from '../components/Track/StepsMonitor'
-import HydrationCard from '../components/Track/HydrationCard'
+import NutrientHydrationCard from '../components/Track/NutritionHydrationCard'
 import WeeklyActivity from '../components/Track/WeeklyActivity'
 
 const Track = () => {
   return (
-    <div className="dashboard-body text-slate-100 antialiased overflow-hidden h-screen">
-      <div className="flex h-full w-full overflow-hidden">
+    <div className="dashboard-body text-slate-100 antialiased overflow-hidden h-screen bg-brand-black relative">
+      <div className="hero-bg-layers" />
+      <div className="flex h-full w-full overflow-hidden relative z-10">
 
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar">
@@ -31,17 +32,19 @@ const Track = () => {
           </div>
 
           {/* Bento Grid */}
-          <div className="px-10 pb-12 w-full">
-            <div className="grid grid-cols-12 gap-6">
+          <div className="mx-auto pb-12 w-[90%]">
+            <div className="grid grid-cols-12 gap-6 h-full">
               {/* ROW 1 */}
               <DailyOverview />
               <StepsMonitor />
-              <AiCoach />
+              <div className="col-span-12 lg:col-span-3 flex flex-col gap-4 h-full">
+                <AiCoach />
+                <TodaysWorkout />
+              </div>
 
               {/* ROW 2 */}
               <SleepTracker />
-              <HydrationCard />
-              <TodaysWorkout />
+              <NutrientHydrationCard />
 
               {/* ROW 3 */}
               <WeeklyActivity />
