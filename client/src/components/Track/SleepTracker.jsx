@@ -24,7 +24,7 @@ const CustomTooltip = ({ active, payload }) => {
 
 const SleepTracker = () => {
   return (
-    <div className="col-span-12 lg:col-span-4 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between min-h-[420px]">
+    <div className="col-span-12 lg:col-span-3 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between min-h-[420px]">
       <div>
         <p className="label-mono text-slate-500 mb-2 uppercase">03 / SLEEP TRACKER</p>
         <div className="flex items-baseline gap-2">

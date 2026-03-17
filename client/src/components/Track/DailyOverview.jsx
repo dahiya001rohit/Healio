@@ -2,7 +2,8 @@ import React from 'react'
 import {
   AreaChart,
   Area,
-  ResponsiveContainer
+  ResponsiveContainer,
+  XAxis
 } from 'recharts'
 
 const AreaData = [
@@ -18,7 +19,7 @@ const AreaData = [
 
 const DailyOverview = () => {
   return (
-    <div className="col-span-12 lg:col-span-5 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between h-[420px]">
+    <div className="col-span-12 lg:col-span-3 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between h-[420px]">
       <div className="flex justify-between items-start mb-6">
         <div>
           <p className="label-mono text-slate-500 mb-2">01 / DAILY OVERVIEW</p>
@@ -48,6 +49,13 @@ const DailyOverview = () => {
                 <stop offset="95%" stopColor="#4ade80" stopOpacity={0} />
               </linearGradient>
             </defs>
+            <XAxis 
+              dataKey="time" 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fill: '#475569', fontSize: 10, fontFamily: 'JetBrains Mono' }} 
+              dy={10} 
+            />
             <Area
               type="monotone"
               dataKey="value"

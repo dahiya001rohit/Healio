@@ -31,7 +31,7 @@ const CustomTooltip = ({ active, payload }) => {
 
 const StepsMonitor = () => {
   return (
-    <div className="col-span-12 lg:col-span-4 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between h-[420px]">
+    <div className="col-span-12 lg:col-span-3 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between h-[420px]">
       <p className="label-mono text-slate-500 mb-2 uppercase">04 / FOOTSTEP MONITOR</p>
       <h3 className="heading-syne text-3xl text-white mb-1">
         10,101 <span className="text-sm font-mono text-slate-500">STEPS</span>

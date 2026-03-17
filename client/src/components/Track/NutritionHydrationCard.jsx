@@ -26,7 +26,7 @@ const donutData = [
 
 const NutrientHydrationCard = () => {
   return (
-    <div className="col-span-12 lg:col-span-8 bg-[#111111] card-border rounded-2xl p-4 md:p-6 flex flex-col min-h-0 lg:min-h-[420px]">
+    <div className="col-span-12 lg:col-span-6 bg-[#111111] card-border rounded-2xl p-4 md:p-6 flex flex-col min-h-0 lg:min-h-[420px]">
       <p className="label-mono text-slate-500 mb-3 uppercase text-[10px] md:text-xs">05 / NUTRITION & HYDRATION</p>
 
       <div className="flex flex-col lg:flex-row flex-1 gap-5 lg:gap-6 items-center lg:items-stretch">
