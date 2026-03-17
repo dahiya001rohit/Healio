@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
 import Track from './Pages/Track'
 import Login from './Pages/Login'
-import SignUp from './Pages/SignUp'
+import SignUp from './Pages/Signup'
 
 const App = () => {
   return (
