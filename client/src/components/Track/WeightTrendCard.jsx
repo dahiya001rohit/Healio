@@ -7,7 +7,7 @@ const generate30DaysData = () => {
   let currentWeight = 84.5 // Starting weight 30 days ago
   const now = new Date()
   
-  for (let i = 30; i >= 0; i--) {
+  for (let i = 10; i >= 0; i--) {
     const d = new Date(now)
     d.setDate(d.getDate() - i)
     
