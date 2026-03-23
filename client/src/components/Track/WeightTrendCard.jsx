@@ -46,7 +46,7 @@ const WeightTrendCard = () => {
   const totalLost = (startWeight - currentWeight).toFixed(1)
 
   return (
-    <div className="col-span-12 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between min-h-[350px]">
+    <div className="col-span-12 lg:col-span-9 bg-[#111111] card-border rounded-2xl p-6 flex flex-col justify-between min-h-[350px]">
       <div className="flex justify-between items-start mb-6">
         <div>
           <p className="label-mono text-slate-500 mb-1">08 / WEIGHT TREND</p>

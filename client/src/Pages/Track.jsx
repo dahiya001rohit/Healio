@@ -1,11 +1,12 @@
 import React from 'react'
-import DailyOverview from '../components/Track/DailyOverview'
 import AiCoach from '../components/Track/AiCoach'
 import TodaysWorkout from '../components/Track/TodaysWorkout'
 import SleepTracker from '../components/Track/SleepTracker'
 import StepsMonitor from '../components/Track/StepsMonitor'
 import TrackHeader from '../components/Track/TrackHeader'
-import NutrientHydrationCard from '../components/Track/NutritionHydrationCard'
+import DailyCaloriesCard from '../components/Track/DailyCaloriesCard'
+import MacrosCard from '../components/Track/MacrosCard'
+import HydrationCard from '../components/Track/HydrationCard'
 import CaloricBalanceCard from '../components/Track/CaloricBalanceCard'
 import WeightTrendCard from '../components/Track/WeightTrendCard'
 
@@ -23,20 +24,21 @@ const Track = () => {
           {/* Bento Grid */}
           <div className="mx-auto pb-12 w-[90%]">
             <div className="grid grid-cols-12 gap-6 h-full">
-              {/* ROW 1: Nutrition (6), Overview (3), Steps (3) */}
-              <NutrientHydrationCard />
-              <DailyOverview />
+              {/* ROW 1: DailyCalories (6), Macros (3), Steps (3) */}
+              <DailyCaloriesCard />
+              <MacrosCard />
               <StepsMonitor />
 
-              {/* ROW 2: Sleep (3), Calories (6), Coach/Workout (3) */}
+              {/* ROW 2: Hydration (3), Sleep (3), CaloricBalance (6) */}
+              <HydrationCard />
               <SleepTracker />
               <CaloricBalanceCard />
+
+              {/* ROW 3: Coach/Workout (3), Weight Trend (9) */}
               <div className="col-span-12 lg:col-span-3 flex flex-col gap-4 h-full">
                 <AiCoach />
                 <TodaysWorkout />
               </div>
-
-              {/* ROW 3: Weight Trend (12) */}
               <WeightTrendCard />
             </div>
           </div>
