@@ -54,7 +54,7 @@ const WeightTrendCard = () => {
             <h3 className="text-3xl font-mono text-white tracking-tight">{currentWeight}</h3>
             <span className="text-sm font-mono text-slate-500">KG</span>
           </div>
-          <p className="text-[#4ade80] text-xs font-mono mt-1">↓ {totalLost}kg over 30 days</p>
+          <p className="text-[#4ade80] text-xs font-mono mt-1">↓ {totalLost}kg over 10 days</p>
         </div>
         <div className="px-3 py-1 bg-white/5 rounded-full border border-white/10 flex items-center gap-1.5">
           <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse"></div>

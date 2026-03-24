@@ -3,7 +3,6 @@ import AiCoach from '../components/Track/AiCoach'
 import TodaysWorkout from '../components/Track/TodaysWorkout'
 import SleepTracker from '../components/Track/SleepTracker'
 import StepsMonitor from '../components/Track/StepsMonitor'
-import TrackHeader from '../components/Track/TrackHeader'
 import DailyCaloriesCard from '../components/Track/DailyCaloriesCard'
 import MacrosCard from '../components/Track/MacrosCard'
 import HydrationCard from '../components/Track/HydrationCard'
@@ -18,11 +17,8 @@ const Track = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar">
-          {/* Page Header */}
-          <TrackHeader />
-
           {/* Bento Grid */}
-          <div className="mx-auto pb-12 w-[90%]">
+          <div className="mx-auto pt-32 pb-12 w-[90%]">
             <div className="grid grid-cols-12 gap-6 h-full">
               {/* ROW 1: DailyCalories (6), Macros (3), Steps (3) */}
               <DailyCaloriesCard />
@@ -31,15 +27,15 @@ const Track = () => {
 
               {/* ROW 2: Hydration (3), Sleep (3), CaloricBalance (6) */}
               <HydrationCard />
-              <SleepTracker />
               <CaloricBalanceCard />
-
+              <SleepTracker /> 
               {/* ROW 3: Coach/Workout (3), Weight Trend (9) */}
+              <WeightTrendCard />
               <div className="col-span-12 lg:col-span-3 flex flex-col gap-4 h-full">
                 <AiCoach />
                 <TodaysWorkout />
               </div>
-              <WeightTrendCard />
+              
             </div>
           </div>
         </main>

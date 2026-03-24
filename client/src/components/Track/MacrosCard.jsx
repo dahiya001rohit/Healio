@@ -20,7 +20,7 @@ const MacrosCard = () => {
           <MacroRing name="FATS" current={macros.fats.current} max={macros.fats.max} color="#6ee7b7" />
         </div>
         {/* Desktop: triangle layout, scaled down */}
-        <div className="hidden lg:flex flex-col gap-1 items-center justify-center scale-[0.65] origin-center">
+        <div className="hidden lg:flex flex-col gap-1 items-center justify-center scale-[0.8] origin-center">
           <MacroRing name="PROTEIN" current={macros.protein.current} max={macros.protein.max} color="#4ade80" />
           <div className="flex gap-3 items-center justify-center">
             <MacroRing name="CARBS" current={macros.carbs.current} max={macros.carbs.max} color="#34d399" />
@@ -28,6 +28,10 @@ const MacrosCard = () => {
           </div>
         </div>
       </div>
+      <button className="flex items-center gap-1 text-[#4ade80] text-[9px] font-bold uppercase tracking-widest group cursor-pointer mt-auto self-start">
+        ADD UPDATE
+        <span className="material-symbols-outlined text-[12px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </button>
     </div>
   )
 }

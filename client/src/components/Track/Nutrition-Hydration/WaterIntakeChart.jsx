@@ -43,8 +43,8 @@ const WaterIntakeChart = () => {
 
   return (
     <div className="flex flex-col w-full lg:w-[180px] justify-between shrink-0">
-      <div className="w-full" style={{ minHeight: 120 }}>
-        <ResponsiveContainer width="100%" height={140}>
+      <div className="w-full" style={{ minHeight: 160 }}>
+        <ResponsiveContainer width="100%" height={180}>
           <BarChart data={hydrationData} margin={{ top: 4, right: 4, left: 4, bottom: 0 }} barCategoryGap="25%">
             <defs>
               <linearGradient id="waterBarGradient" x1="0" y1="0" x2="0" y2="1">

@@ -9,6 +9,10 @@ const HydrationCard = () => {
       <div className="flex-1 flex flex-col items-center justify-center w-full">
         <WaterIntakeChart />
       </div>
+      <button className="flex items-center gap-1 text-[#4ade80] text-[9px] font-bold uppercase tracking-widest group cursor-pointer mt-auto self-start">
+        ADD UPDATE
+        <span className="material-symbols-outlined text-[12px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </button>
     </div>
   )
 }

@@ -1,21 +1,67 @@
 const mongoose = require('mongoose')
-const { type } = require('node:os')
+
 
 const userSchema = new mongoose.Schema({
+
+    // ── Auth ──────────────────────────────
     name: {
         type: String,
-        required: true
+        required: [true, 'Name is required'],
+        trim: true
     },
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: [true, 'Email is required'],
+        unique: true,
+        lowercase: true,
+        trim: true,
     },
-    hashPassword: {
+
+    // optional — null for Google users
+    password: {
         type: String,
-        required: true
+        minlength: 6,
+        select: false,
+        default: null
+    },
+
+    // ── Google OAuth ───────────────────────
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true,   // allows multiple null values
+        default: null
+    },
+    authProvider: {
+        type: String,
+        enum: ['local', 'google'],
+        default: 'local'
+    },
+
+    // ── Profile ───────────────────────────
+    profilePicture: {
+        type: String,
+        default: null   // Google gives this automatically
+    },
+
+    // ── Status ────────────────────────────
+    onboardingCompleted: {
+        type: Boolean,
+        default: false
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+
+    // ── Tokens ────────────────────────────
+    refreshToken: {
+        type: String,
+        select: false,
+        default: null
     }
+
 }, { timestamps: true })
 
-const Users = mongoose.model('users', userSchema)
-module.exports = Users
+const User = mongoose.model('user', userSchema)
+module.exports = User

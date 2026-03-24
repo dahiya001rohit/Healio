@@ -2,8 +2,9 @@ import React from 'react'
 
 const tabs = [
   { label: 'DASHBOARD', active: true },
-  { label: 'WORKOUTS', active: false },
-  { label: 'NUTRITION', active: false }
+  { label: 'WORKOUTS & STEPS', active: false },
+  { label: 'NUTRITION & SLEEP', active: false },
+  { label: 'AI COACH', active: false }
 ]
 
 const TrackHeader = () => {
