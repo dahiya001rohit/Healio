@@ -4,7 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
 import Track from './Pages/Track'
 import Login from './Pages/Login'
-import SignUp from './Pages/Signup'
+import SignUp from './Pages/SignUp'
+import DailyLogs from './Pages/DailyLogs'
 
 const App = () => {
   return (
@@ -19,6 +20,11 @@ const App = () => {
         <Route path='/track' element={
           <>
             <Track />
+          </>
+        } />
+        <Route path='/dailylogs' element={
+          <>
+            <DailyLogs />
           </>
         } />
         <Route path='/login' element={<Login />} />

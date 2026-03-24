@@ -1,5 +1,5 @@
 import React from 'react'
-import AiCoach from '../components/Track/AiCoach'
+import AiCoach from '../components/AiCoach'
 import TodaysWorkout from '../components/Track/TodaysWorkout'
 import SleepTracker from '../components/Track/SleepTracker'
 import StepsMonitor from '../components/Track/StepsMonitor'
