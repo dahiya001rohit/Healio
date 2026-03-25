@@ -38,11 +38,11 @@ const hydrationData = [
   { period: 'NGT', intake: 0.2 }
 ]
 
-const WaterIntakeChart = () => {
+const WaterIntakeChart = ({ isExpanded }) => {
   const totalIntake = hydrationData.reduce((sum, d) => sum + d.intake, 0)
 
   return (
-    <div className="flex flex-col w-full lg:w-[180px] justify-between shrink-0">
+    <div className={`flex flex-col w-full ${isExpanded ? '' : 'lg:w-[180px]'} justify-between shrink-0`}>
       <div className="w-full" style={{ minHeight: 160 }}>
         <ResponsiveContainer width="100%" height={180}>
           <BarChart data={hydrationData} margin={{ top: 4, right: 4, left: 4, bottom: 0 }} barCategoryGap="25%">

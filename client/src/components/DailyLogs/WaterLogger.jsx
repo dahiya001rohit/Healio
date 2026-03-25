@@ -3,7 +3,8 @@ import React from 'react'
 const timeSlots = [
   { label: 'Morning (6am - 12pm)', current: 750, max: 1000 },
   { label: 'Afternoon (12pm - 5pm)', current: 1250, max: 1000 },
-  { label: 'Evening (5pm - 9pm)', current: 0, max: 500 }
+  { label: 'Evening (5pm - 9pm)', current: 0, max: 500 },
+  { label: 'Night (9pm - 6am)', current: 0, max: 500 }
 ]
 
 const quickAddOptions = ['250ML', '500ML', '1L']
@@ -48,6 +49,10 @@ const WaterLogger = () => {
             )
           })}
         </div>
+
+        <button className="w-full bg-[#4ade80] text-[#002f13] heading-syne py-4 rounded-full text-sm uppercase tracking-widest hover:brightness-110 transition-all font-bold mt-4">
+          Add Water
+        </button>
       </div>
     </div>
   )

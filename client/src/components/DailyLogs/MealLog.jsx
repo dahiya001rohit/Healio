@@ -25,6 +25,12 @@ const mealsData = [
     icon: 'dark_mode',
     kcal: null,
     items: []
+  },
+  {
+    name: 'Snack',
+    icon: 'cookie',
+    kcal: null,
+    items: []
   }
 ]
 

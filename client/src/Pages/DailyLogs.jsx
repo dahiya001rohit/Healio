@@ -37,7 +37,7 @@ const DailyLogs = () => {
 
               {/* RIGHT COLUMN: Existing shared components + comparison */}
               <div className="space-y-6">
-                <HydrationCard />
+                <HydrationCard hideUpdateBtn={true} />
                 <SleepTracker />
                 <AiCoach />
                 <DailyComparison />
